@@ -17,7 +17,7 @@ public class Utilisateur {
 	private int credit;
 	private boolean administrateur = false;
 	
-	private List<ArticleVendu> articleVendu;
+//	private List<ArticleVendu> articleVendu;
 	private List<Enchere> enchere;
 
 	//Contructeur
