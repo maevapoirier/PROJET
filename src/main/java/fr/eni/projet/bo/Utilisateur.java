@@ -1,6 +1,7 @@
 package fr.eni.projet.bo;
 
-import java.util.List;
+//import java.util.ArrayList;
+//import java.util.List;
 
 public class Utilisateur {
 	//Attributs d'instance
@@ -17,8 +18,10 @@ public class Utilisateur {
 	private int credit;
 	private boolean administrateur = false;
 	
+
+//je m'occupe d'implémenter les arrayLists demain !
 //	private List<ArticleVendu> articleVendu;
-	private List<Enchere> enchere;
+//	private List<Enchere> enchere;
 
 	//Contructeur
 	 //vide
@@ -39,6 +42,8 @@ public class Utilisateur {
 		this.motDePasse = motDePasse;
 		this.credit = credit;
 		this.administrateur = administrateur;
+//		this.articleVendu = new ArrayList<String>(); 
+//		this.enchere = new ArrayList<Enchere>(); 	
 	}
 	
 	//getter et setter
