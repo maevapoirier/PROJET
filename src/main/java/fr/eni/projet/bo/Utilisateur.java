@@ -1,6 +1,6 @@
 package fr.eni.projet.bo;
 
-//import java.util.ArrayList;
+import java.util.ArrayList;
 //import java.util.List;
 
 public class Utilisateur {
@@ -19,9 +19,8 @@ public class Utilisateur {
 	private boolean administrateur = false;
 	
 
-//je m'occupe d'implémenter les arrayLists demain !
 //	private List<ArticleVendu> articleVendu;
-//	private List<Enchere> enchere;
+	private ArrayList<Enchere> enchere = new ArrayList<Enchere>();
 
 	//Contructeur
 	 //vide
@@ -29,7 +28,7 @@ public class Utilisateur {
 
 	}
 	 //tous les paramètres
-	public Utilisateur(String pseudo,String nom,String prenom,String email,String telephone,String rue,int codePostal,String ville,String motDePasse,int credit,boolean administrateur) {
+	public Utilisateur(String pseudo,String nom,String prenom,String email,String telephone,String rue,int codePostal,String ville,String motDePasse,int credit,boolean administrateur, ArrayList<Enchere> enchere) {
 		super();
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -43,10 +42,17 @@ public class Utilisateur {
 		this.credit = credit;
 		this.administrateur = administrateur;
 //		this.articleVendu = new ArrayList<String>(); 
-//		this.enchere = new ArrayList<Enchere>(); 	
+		this.enchere = enchere; 	
 	}
 	
 	//getter et setter
+	  //enchere
+	public ArrayList<Enchere> getEnchere() {
+		return enchere;
+	}
+	public void setEnchere(ArrayList<Enchere> enchere) {
+		this.enchere = enchere;
+	}
 	  //utilisateur
 	public int getNoUtilisateur() {
 		return noUtilisateur;
