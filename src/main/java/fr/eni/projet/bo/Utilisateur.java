@@ -20,7 +20,7 @@ public class Utilisateur {
 	
 
 //	private List<ArticleVendu> articleVendu;
-//	private ArrayList<Enchere> enchere = new ArrayList<Enchere>();
+	private ArrayList<Enchere> enchere = new ArrayList<Enchere>();
 
 	//Contructeur
 	 //vide
@@ -28,7 +28,7 @@ public class Utilisateur {
 
 	}
 	 //tous les paramètres
-	public Utilisateur(String pseudo,String nom,String prenom,String email,String telephone,String rue,int codePostal,String ville,String motDePasse,int credit,boolean administrateur, ArrayList<Enchere> enchere) {
+	public Utilisateur(String pseudo,String nom,String prenom,String email,String telephone,String rue,int codePostal,String ville,String motDePasse,int credit,boolean administrateur) {
 		super();
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -46,13 +46,6 @@ public class Utilisateur {
 	}
 	
 	//getter et setter
-	  //enchere
-	public ArrayList<Enchere> getEnchere() {
-		return enchere;
-	}
-	public void setEnchere(ArrayList<Enchere> enchere) {
-		this.enchere = enchere;
-	}
 	  //utilisateur
 	public int getNoUtilisateur() {
 		return noUtilisateur;
