@@ -45,6 +45,12 @@ public class Utilisateur {
 		this.enchere = enchere; 	
 	}
 	
+	public ArrayList<Enchere> getEnchere() {
+		return enchere;
+	}
+	public void setEnchere(ArrayList<Enchere> enchere) {
+		this.enchere = enchere;
+	}
 	//getter et setter
 	  //utilisateur
 	public int getNoUtilisateur() {
