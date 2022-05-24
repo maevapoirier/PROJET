@@ -20,7 +20,7 @@ public class Utilisateur {
 	
 
 //	private List<ArticleVendu> articleVendu;
-	private ArrayList<Enchere> enchere = new ArrayList<Enchere>();
+//	private ArrayList<Enchere> enchere = new ArrayList<Enchere>();
 
 	//Contructeur
 	 //vide
