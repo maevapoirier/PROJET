@@ -5,53 +5,46 @@ package fr.eni.projet.servlet;
  */
 public abstract class CodesResultatServlets {
 	
-	/**
-	 * Login indisponible
-	 */
-	public static final int LOGIN_DEJA_PRIS=30000;
-	/**
-	 * Adresse email dejà utilisée
-	 */
-	public static final int ADRESSE_EMAIL_DEJA_UTILISEE=30001;
+	
 	/**
 	 * Le nom n'est pas renseigné
 	 */
-	public static final int NOM_PAS_RENSEIGNE=30002;
+	public static final int NOM_PAS_RENSEIGNE=30000;
 	/**
 	 * Le prenom n'est pas renseigné
 	 */
-	public static final int PRENOM_PAS_RENSEIGNE=30003;
+	public static final int PRENOM_PAS_RENSEIGNE=30001;
 	/**
 	 * Le pseudo n'est pas renseigné
 	 */
-	public static final int PSEUDO_PAS_RENSEIGNE=30004;
+	public static final int PSEUDO_PAS_RENSEIGNE=30002;
 	/**
 	 * L'email n'est pas renseigné
 	 */
-	public static final int EMAIL_PAS_RENSEIGNE=30005;
+	public static final int EMAIL_PAS_RENSEIGNE=30003;
 	/**
 	 * La rue n'est pas renseignée
 	 */
-	public static final int RUE_PAS_RENSEIGNEE=30006;
+	public static final int RUE_PAS_RENSEIGNEE=30004;
 	/**
 	 * Le code postal n'est pas renseigné
 	 */
-	public static final int CP_PAS_RENSEIGNE=30007;
+	public static final int CP_PAS_RENSEIGNE=30005;
 	/**
 	 * La ville n'est pas renseignée
 	 */
-	public static final int VILLE_PAS_RENSEIGNEE=30008;
+	public static final int VILLE_PAS_RENSEIGNEE=30006;
 	/**
 	 * Le mot de passe n'est pas renseigné
 	 */
-	public static final int MDP_PAS_RENSEIGNE=30009;
+	public static final int MDP_PAS_RENSEIGNE=30007;
 	/**
 	 * Le mot de passe n'est pas confirmé
 	 */
-	public static final int MDP2_PAS_RENSEIGNE=30010;
+	public static final int MDP2_PAS_RENSEIGNE=30008;
 	/**
 	 * Les mots de passe ne sont pas identiques
 	 */
-	public static final int MDP_DIFFERENTS=30011;
+	public static final int MDP_DIFFERENTS=30009;
 	
 }

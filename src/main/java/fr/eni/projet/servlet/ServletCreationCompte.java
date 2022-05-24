@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.javaee.suividesrepas.bll.RepasManager;
 import fr.eni.projet.BusinessException;
+import fr.eni.projet.bll.UtilisateurManager;
 
 /**
  * Servlet implementation class ServletConnexion
@@ -41,6 +43,7 @@ public class ServletCreationCompte extends HttpServlet {
 		String telephone = request.getParameter("telephone");
 		String rue = request.getParameter("rue");
 		String cp = request.getParameter("cp");
+		int codePostal = Integer.parseInt(cp);
 		String ville = request.getParameter("ville");
 		String mdp = request.getParameter("password");
 		String mdp2 = request.getParameter("password2");
@@ -92,45 +95,35 @@ public class ServletCreationCompte extends HttpServlet {
 			}
 			
 			
-			if(listeCodesErreur.size()<1)
-			{
-				
-				// On va vérifier le login et l'adresse email dans la base de données
-				
-				//si le login est déjà connu dans la base de données
-				if( )
-				{
-					listeCodesErreur.add(CodesResultatServlets.LOGIN_DEJA_PRIS);
-				}
-				
-				
-				//si le l'adresse email est déjà connue dans la base de données
-				if ( )
-				{
-					listeCodesErreur.add(CodesResultatServlets.ADRESSE_EMAIL_DEJA_UTILISEE);
-				}
-				
-				
 				//Si toujours aucune erreur
 				if(listeCodesErreur.size()<1)
 				{
-					//J'affiche la page utilisateur
-					request.setAttribute("utilisateur",pseudo);
-					RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/listeEncheres.jsp");
-					rd.forward(request, response);
+					//Je créé un nouvel utilisateur 
+					UtilisateurManager utilisateurManager = new UtilisateurManager();
+					try {
+						utilisateurManager.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
+						//Si tout se passe bien, je vais vers la page de consultation:
+						request.setAttribute("utilisateur",pseudo);
+						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/listeEncheres.jsp");
+						rd.forward(request, response);
+					} catch (BusinessException e) {
+						//Sinon je retourne à la page d'ajout pour indiquer les problèmes:
+						e.printStackTrace();
+						request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
+						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/creationCompte.jsp");
+						rd.forward(request, response);
+					}
+					
+					
+					
+				
 				}
 			
-			else 
-			{
-				//Je renvoie les codes d'erreurs
-				request.setAttribute("listeCodesErreur",listeCodesErreur);
-				RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/creationCompte.jsp");
-				rd.forward(request, response);
-			}
+	
 		}
 	}
 	
-}
+
 		
 		
 	
