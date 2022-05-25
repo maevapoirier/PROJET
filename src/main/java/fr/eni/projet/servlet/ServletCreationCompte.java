@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.javaee.suividesrepas.bll.RepasManager;
 import fr.eni.projet.BusinessException;
 import fr.eni.projet.bll.UtilisateurManager;
 
@@ -103,6 +102,8 @@ public class ServletCreationCompte extends HttpServlet {
 					try {
 						utilisateurManager.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
 						//Si tout se passe bien, je vais vers la page de consultation:
+						HttpServletRequest httpRequest = (HttpServletRequest) request;
+						httpRequest.getSession().setAttribute("ok", true);
 						request.setAttribute("utilisateur",pseudo);
 						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/listeEncheres.jsp");
 						rd.forward(request, response);

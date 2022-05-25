@@ -13,6 +13,19 @@ public class UtilisateurManager {
 		public UtilisateurManager() {
 			this.utilisateurDAO=DAOFactory.getUtilisateurDAO();
 		}
+		
+		public boolean connecterUtilisateur(String pseudo, String motDePasse)
+		{
+			BusinessException businessException = new BusinessException();
+			Utilisateur utilisateur = utilisateurDAO.selectByPseudo(pseudo);
+			if (utilisateur.getMotDePasse().equals(motDePasse))
+			{
+				return true;
+			} else {
+				return false;
+			}
+			
+		}
 
 		public Utilisateur ajouterUtilisateur(String pseudo,String nom,String prenom,String email,String telephone,String rue,int codePostal,String ville,String motDePasse) throws BusinessException 
 		{
