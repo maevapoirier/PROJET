@@ -48,15 +48,14 @@ public class FiltreConnecte implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
-		if(httpRequest.getSession().getAttribute("ok")!=null)
+		if(httpRequest.getSession().getAttribute("session")!=null)
 		{
-			httpRequest.getSession().setAttribute("ok", true);
 			chain.doFilter(request, response);
 			
 		}
 		else
 		{
-			httpRequest.setAttribute("urlCible", httpRequest.getContextPath()+httpRequest.getServletPath());
+			httpRequest.setAttribute("message", "Veuillez-vous identifier ou créer un compte");
 			RequestDispatcher rd = httpRequest.getRequestDispatcher("/WEB-INF/Connexion.jsp");
 			rd.forward(httpRequest, httpResponse);
 		}

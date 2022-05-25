@@ -18,7 +18,7 @@ import fr.eni.projet.bll.UtilisateurManager;
 /**
  * Servlet implementation class ServletConnexion
  */
-@WebServlet("/ServletConnexion")
+@WebServlet("/ServletCreationCompte")
 public class ServletCreationCompte extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -103,8 +103,7 @@ public class ServletCreationCompte extends HttpServlet {
 						utilisateurManager.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
 						//Si tout se passe bien, je vais vers la page de consultation:
 						HttpServletRequest httpRequest = (HttpServletRequest) request;
-						httpRequest.getSession().setAttribute("ok", true);
-						request.setAttribute("utilisateur",pseudo);
+						httpRequest.getSession().setAttribute("session", pseudo);
 						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/listeEncheres.jsp");
 						rd.forward(request, response);
 					} catch (BusinessException e) {

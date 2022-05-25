@@ -8,11 +8,11 @@ public class ArticleVendu {
 	private String description;
 	private Date dateDebutEncheres;
 	private Date dateFinEncheres;
-	private double miseAPrix; //prix de départ du produit
+	private double miseAPrix; //prix de dï¿½part du produit
 	private double prixVente; //prix final de vente du produit
 	private boolean etatVente; //vente en cours=1, sinon=0
 	
-	private int utilisateur;
+	private Utilisateur utilisateur;
 	private Retrait retrait;
 	private Categorie categorie;
 	private Enchere enchere;

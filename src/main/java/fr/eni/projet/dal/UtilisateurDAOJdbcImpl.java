@@ -1,0 +1,270 @@
+package fr.eni.projet.dal;
+
+
+
+
+
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+
+
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
+import fr.eni.projet.BusinessException;
+import fr.eni.projet.bo.Utilisateur;
+
+
+
+
+abstract class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
+
+
+
+private static final String INSERT="INSERT INTO Utilisateur(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
+private static final String SELECT="SELECT * from Utilisateur (no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
+private static final String CREATE="CREATE INTO Utilisateur (no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
+private static final String UPDATE="UPDATE Utilisateur set pseudo=?,nom=?,prenom=?,email=?,telephone=?,rue=?,code_postal=?,ville=?,mot_de_passe=?,credit=?,administrateur=?) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
+private static final String DELETE="DELETE * FROM Utilisateur WHERE no_utilisateur =?";
+private static final String FIND_USER_BY_EMAIL="SELECT * FROM Utilisateur WHERE email=?";
+private static final String FIND_USER_BY_PSEUDO="SELECT * FROM Utilisateur WHERE pseudo=?";
+
+
+
+static Connection con;
+static PreparedStatement ps;
+
+@Override
+public boolean loginUtilisateur(String noUtilisateur,String motDePasse) {
+boolean status = false;
+try(Connection con = ConnectionProvider.getConnection())
+{
+PreparedStatement ps = con.prepareStatement(SELECT);
+ps.setString(1, noUtilisateur);
+ps.setString(2, noUtilisateur);
+ps.setString(3,motDePasse);
+ResultSet rs = ps.executeQuery();
+
+status = rs.next();
+
+
+
+} catch(Exception e)
+{
+e.printStackTrace();
+}
+return status;
+}
+
+
+
+@Override
+public boolean Select_all(Utilisateur u) {
+boolean status = false;
+try(Connection con = ConnectionProvider.getConnection())
+{
+PreparedStatement ps = con.prepareStatement(SELECT);
+ps.setString(1, u.getPseudo());
+ps.setString(2, u.getEmail());
+ps.setString(3, u.getMotDePasse());
+ResultSet rs = ps.executeQuery();
+status = rs.next();
+
+
+
+} catch(Exception e)
+
+
+{
+e.printStackTrace();
+}
+return status;
+}
+
+
+
+
+@Override
+public void insert(Utilisateur u) throws BusinessException {
+if (u==null) //vérification si l'ibjet saisi est null
+{
+BusinessException businessException = new BusinessException(); // si oui, on lève une business exception
+businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_NULL); //en envoyant un code INSERT_OBJET_NULL
+throw businessException;
+}
+int status=0;
+try {
+con=ConnectionProvider.getConnection();
+
+ps=con.prepareStatement(INSERT,PreparedStatement.RETURN_GENERATED_KEYS);
+ps.setString(1,u.getPseudo());
+ps.setString(2,u.getNom());
+ps.setString(3,u.getPrenom());
+ps.setString(4,u.getEmail());
+ps.setString(5,u.getTelephone());
+ps.setString(6,u.getRue());
+ps.setString(7,u.getCodePostal()+"");
+ps.setString(8,u.getVille());
+ps.setString(9,u.getMotDePasse());
+ps.setInt(10,u.getCredit());
+ps.executeUpdate();
+ResultSet rs= ps.getGeneratedKeys();
+if(rs.next())
+{
+u.setNoUtilisateur(rs.getInt(1));
+}
+}
+catch (SQLServerException e) {
+if (e.getMessage().contains("UN_EMAIL")) {
+throw new BusinessException(CodesResultatDAL.DOUBLE_MAIL);
+}
+if (e.getMessage().contains("UN_PSEUDO")) {
+	throw new BusinessException(CodesResultatDAL.DOUBLE_PSEUDO);
+}
+e.printStackTrace();
+throw new BusinessException();
+}
+catch(Exception e) //Block catch éxécuté si exception
+{
+e.printStackTrace(); //Affichage dans la console l'erreur survenue
+throw new BusinessException();
+}
+}
+
+
+
+
+
+
+@Override
+public boolean findByPseudo(Utilisateur u)  ; {
+boolean exists = false;
+try(Connection con = ConnectionProvider.getConnection())
+{
+PreparedStatement ps = con.prepareStatement(FIND_USER_BY_PSEUDO);
+ps.setString(1, u.getPseudo());
+ResultSet rs = ps.executeQuery();
+exists = rs.next();
+}
+catch (Exception e) {
+e.printStackTrace();
+}
+return exists;
+
+}
+
+
+
+
+
+@Override
+public boolean findByEmail(Utilisateur u) {
+
+boolean exists = false;
+try(Connection con = ConnectionProvider.getConnection())
+{
+PreparedStatement ps = con.prepareStatement(FIND_USER_BY_EMAIL);
+ps.setString(1,u.getEmail());
+ResultSet rs = ps.executeQuery();
+exists = rs.next();
+}
+catch(Exception e)
+{
+e.printStackTrace();
+}
+return exists;
+}
+
+
+
+
+
+
+@Override
+public void update(Utilisateur u) {
+try(Connection con = ConnectionProvider.getConnection())
+{
+PreparedStatement ps = con.prepareStatement(UPDATE);
+ps.setString(1, u.getPseudo());
+ps.setString(2, u.getNom());
+ps.setString(3, u.getPrenom());
+ps.setString(4, u.getEmail());
+ps.setString(5, u.getTelephone());
+ps.setString(6, u.getRue());
+ps.setString(7, u.getCodePostal()+"");
+ps.setString(8, u.getVille());
+ps.setString(9, u.getMotDePasse());
+ps.setInt(10,u.getCredit());
+ps.setInt(11, u.getNoUtilisateur());
+ps.executeUpdate();
+}
+catch(Exception e)
+{
+e.printStackTrace();
+}
+}
+
+
+
+@Override
+public void delete (Utilisateur u) {
+
+try(Connection con = ConnectionProvider.getConnection())
+{
+PreparedStatement ps = con.prepareStatement(DELETE);
+ps.setInt(1, u.getNoUtilisateur());
+ps.executeUpdate();
+}
+catch(Exception e)
+{
+e.printStackTrace();
+}
+
+}
+
+@Override
+public .Utilisateur findById(int id){
+Utilisateur u= new Utilisateur();
+try(Connection con = ConnectionProvider.getConnection())
+{
+PreparedStatement ps =con.prepareStatement(FIND_USER_BY_ID);
+ps.setInt(1, id);
+ResultSet rs = ps.executeQuery();
+while(rs.next()) {
+u.setNoUtilisateur(rs.getInt(1));
+u.setPseudo(rs.getString(2));
+u.setNom(rs.getString(3));
+u.setPrenom(rs.getString(4));
+u.setEmail(rs.getString(5));
+u.setTelephone(rs.getString(6));
+u.setRue(rs.getString(7));
+u.setCodePostal(rs.getString(8));
+u.setVille(rs.getString(9));
+u.setMotDePasse(rs.getString(10));
+u.setCredit(rs.getInt(11));
+u.setAdministrateur(rs.getBoolean(12));
+}
+}
+
+catch(Exception e)
+{
+e.printStackTrace();
+}
+return u;
+}
+
+
+
+
+public Utilisateur getUtilisateur(String uNo, String password) throws BusinessException {
+// TODO Auto-generated method stub
+return null;
+}
+
+
+
+
+}
