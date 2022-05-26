@@ -1,4 +1,4 @@
-package fr.eni.projet.bo;
+package fr.eni.projet.bo; //
 
 public class Categorie {
 	private int noCategorie;
