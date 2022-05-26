@@ -15,15 +15,15 @@ public class UtilisateurManager {
 			this.utilisateurDAO=DAOFactory.getUtilisateurDAO();
 		}
 		
-		public boolean connecterUtilisateur(String pseudo, String motDePasse)
+		public Utilisateur connecterUtilisateur(String pseudo, String motDePasse)
 		{
 			BusinessException businessException = new BusinessException();
 			Utilisateur utilisateur = utilisateurDAO.findByPseudo(pseudo);
 			if (utilisateur.getMotDePasse().equals(motDePasse))
 			{
-				return true;
+				return utilisateur;
 			} else {
-				return false;
+				return null;
 			}
 			
 		}

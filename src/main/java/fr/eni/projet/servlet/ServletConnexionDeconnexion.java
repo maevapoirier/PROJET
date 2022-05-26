@@ -9,8 +9,10 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.eni.projet.bll.UtilisateurManager;
+import fr.eni.projet.bo.Utilisateur;
 
 /**
  * Servlet implementation class ServletConnexion
@@ -25,8 +27,9 @@ public class ServletConnexionDeconnexion extends HttpServlet {
 	 */
 	//DOGET pour la deconnexion
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		httpRequest.getSession().setAttribute("utilisateur", null);
+		HttpSession session = request.getSession(true); 
+		session.invalidate();
+		//httpRequest.getSession().setAttribute("utilisateur", null);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/listeEncheres.jsp");
 		rd.forward(request, response);
 	}
@@ -36,16 +39,30 @@ public class ServletConnexionDeconnexion extends HttpServlet {
 	 */
 	//DOPOST pour la connexion
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String pseudo = request.getParameter("pseudo");
+		String login = request.getParameter("email");
 		String mdp = request.getParameter("password");
 		
 		
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
+		Utilisateur utilisateur = utilisateurManager.connecterUtilisateur(login, mdp);
 		
-		if(utilisateurManager.connecterUtilisateur(pseudo, mdp))
+		if(utilisateur!=null)
 		{
-			HttpServletRequest httpRequest = (HttpServletRequest) request;
-			httpRequest.getSession().setAttribute("utilisateur", utilisateurManager);
+			// HttpServletRequest httpRequest = (HttpServletRequest) request;
+			HttpSession session = request.getSession(true);
+			//httpRequest.getSession().setAttribute("utilisateur", utilisateur);
+			session.setAttribute("utilisateur", utilisateur);
+			
+			//Si la case "se souvenir de moi" est cochée on envoie 2 cookies (login et mdp)
+			if(request.getParameter("souvenir").equals("checked")) {
+				Cookie cookie1 = new Cookie("login", login);
+				cookie1.setMaxAge(300000000); //environ 10 ans 
+				response.addCookie(cookie1);
+				Cookie cookie2 = new Cookie("mdp", mdp);  //TODO mot de passe à crypter
+				cookie2.setMaxAge(300000000);
+				response.addCookie(cookie2);
+			}
+			
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/listeEncheres.jsp");
 			rd.forward(request, response);

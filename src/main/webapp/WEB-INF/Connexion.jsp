@@ -8,6 +8,21 @@
 <link type="text/css" rel="stylesheet" href="form.css" />
 </head>
 <body>
+
+
+<%
+
+	Cookie[] cookies = request.getCookies();
+	Cookie cookie = null;
+	if(cookies!=null)
+	{
+		for(int i=0; i<cookies.length; i++)
+		{
+			cookie = cookies[i]; // remplir le tableau de cookies
+		}
+	} // recuperer les cookies login et mdp et les mettre dans un objet javabean pour les réutiliser dans le formulaire
+%>
+
 	<form method="post" action="connexion">
 		<fieldset>
 			<legend>Connexion</legend>
@@ -16,14 +31,16 @@
 			<label for="nom">Adresse email <span class="requis">*</span></label>
 			<input type="email" id="email" name="email"
 				value="<c:out value="${utilisateur.email}"/>" size="20"
-				maxlength="60" /> <span class="erreur">${form.erreurs['email']}</span>
+				maxlength="60" /> 
 			<br /> <label for="motdepasse">Mot de passe <span
 				class="requis">*</span></label> <input type="password" id="motdepasse"
-				name="motdepasse" value="" size="20" maxlength="20" /> <span
-				class="erreur">${form.erreurs['motdepasse']}</span> <br /> <input
-				type="submit" value="Connexion" class="sansLabel" /> <br />
+				name="motdepasse" value="<c:out value="${utilisateur.motdepasse}"/>" size="20" maxlength="20" />  <br />
+				
+				Se souvenir de moi ? <input type="checkbox" name="souvenir" value="checked" /><br />
+				
+				 <input type="submit" value="Connexion" class="sansLabel" /> <br />
 
-			<p class="${empty form.erreurs ? 'succes' : 'erreur'}">${form.resultat}</p>
+			
 		</fieldset>
 	</form>
 </body>
