@@ -131,8 +131,13 @@ public class Utilisateur {
 	}
 	  //administrateur
 	public boolean isAdministrateur() {
-		return administrateur;
+		if (this.administrateur==0) {
+			return false;
+		} else { return true; }
 	}
+		
+		
+	
 	public void setAdministrateur(byte b) {
 		this.administrateur = b;
 	}
