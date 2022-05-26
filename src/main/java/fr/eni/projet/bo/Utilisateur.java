@@ -20,16 +20,15 @@ public class Utilisateur {
 	
 
 //	private List<ArticleVendu> articleVendu;
-	private ArrayList<Enchere> enchere = new ArrayList<Enchere>();
+	private ArrayList<Enchere> enchere;
 
 	//Contructeur
 	 //vide
 	public Utilisateur() {
-
 	}
 	 //tous les param�tres
 	public Utilisateur(String pseudo,String nom,String prenom,String email,String telephone,String rue,int codePostal,String ville,String motDePasse,int credit,byte administrateur) {
-		super();
+		this.enchere = enchere; 	
 		this.pseudo = pseudo;
 		this.nom = nom;
 		this.prenom = prenom;
@@ -42,7 +41,6 @@ public class Utilisateur {
 		this.credit = credit;
 		this.administrateur = administrateur;
 //		this.articleVendu = new ArrayList<String>(); 
-		this.enchere = enchere; 	
 	}
 	
 	public ArrayList<Enchere> getEnchere() {
@@ -146,7 +144,7 @@ public class Utilisateur {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Utilisateur : ");
+		sb.append("Utilisateur : \n");
 		sb.append("  pseudo = " + pseudo + "\n");
 		sb.append("  nom = " + nom + "\n");
 		sb.append("  prenom = " + prenom + "\n");
