@@ -2,13 +2,14 @@ package fr.eni.projet.bll;
 
 import fr.eni.projet.BusinessException;
 import fr.eni.projet.bo.Utilisateur;
+import fr.eni.projet.dal.UtilisateurDAO;
 
 public class UtilisateurManager {
 	
 
 		private UtilisateurDAO utilisateurDAO;
 		private int credit=0;
-		boolean administrateur = false;
+		byte administrateur = 0;
 		
 		public UtilisateurManager() {
 			this.utilisateurDAO=DAOFactory.getUtilisateurDAO();
@@ -17,7 +18,7 @@ public class UtilisateurManager {
 		public boolean connecterUtilisateur(String pseudo, String motDePasse)
 		{
 			BusinessException businessException = new BusinessException();
-			Utilisateur utilisateur = utilisateurDAO.selectByPseudo(pseudo);
+			Utilisateur utilisateur = utilisateurDAO.findByPseudo(pseudo);
 			if (utilisateur.getMotDePasse().equals(motDePasse))
 			{
 				return true;
@@ -32,7 +33,7 @@ public class UtilisateurManager {
 			
 			BusinessException businessException = new BusinessException();
 			
-			// validation des données email dispo et pseudo dispo  (getUtilisateur by email)
+			// validation des données email dispo et pseudo dispo 
 			this.validerEmail(email, businessException);
 			this.validerPseudo(pseudo, businessException);
 			
@@ -65,7 +66,7 @@ public class UtilisateurManager {
 		}
 
 		private void validerEmail(String email, BusinessException businessException) {
-			if(utilisateurDAO.selectByEmail(email))
+			if(utilisateurDAO.findByEmail(email) != null)
 			{
 				businessException.ajouterErreur(CodesResultatBLL.EMAIL_DEJA_UTILISE);
 			}
@@ -73,7 +74,7 @@ public class UtilisateurManager {
 		}
 
 		private void validerPseudo(String pseudo, BusinessException businessException) {
-			if(utilisateurDAO.selectByPseudo(pseudo))
+			if(utilisateurDAO.findByPseudo(pseudo) != null)
 			{
 				businessException.ajouterErreur(CodesResultatBLL.PSEUDO_DEJA_UTILISE);
 			}

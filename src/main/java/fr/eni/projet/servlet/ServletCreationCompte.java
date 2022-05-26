@@ -52,52 +52,52 @@ public class ServletCreationCompte extends HttpServlet {
 		
 		
 		
-			if(nom.equals(null))
-			{
-				listeCodesErreur.add(CodesResultatServlets.NOM_PAS_RENSEIGNE);
-			}
-			if(prenom.equals(null))
-			{
-				listeCodesErreur.add(CodesResultatServlets.PRENOM_PAS_RENSEIGNE);
-			}
-			if(pseudo.equals(null))
-			{
-				listeCodesErreur.add(CodesResultatServlets.PSEUDO_PAS_RENSEIGNE);
-			}
-			if(email.equals(null))
-			{
-				listeCodesErreur.add(CodesResultatServlets.EMAIL_PAS_RENSEIGNE);
-			}
-			if(rue.equals(null))
-			{
-				listeCodesErreur.add(CodesResultatServlets.RUE_PAS_RENSEIGNEE);
-			}
-			if(cp.equals(null))
-			{
-				listeCodesErreur.add(CodesResultatServlets.CP_PAS_RENSEIGNE);
-			}
-			if(ville.equals(null))
-			{
-				listeCodesErreur.add(CodesResultatServlets.VILLE_PAS_RENSEIGNEE);
-			}
-			if(mdp.equals(null))
-			{
-				listeCodesErreur.add(CodesResultatServlets.MDP_PAS_RENSEIGNE);
-			}
-			if(mdp2.equals(null))
-			{
-				listeCodesErreur.add(CodesResultatServlets.MDP2_PAS_RENSEIGNE);
-			}
-			if(!mdp.equals(mdp2))
-			{
-				listeCodesErreur.add(CodesResultatServlets.MDP_DIFFERENTS);
-			}
+//			if(nom.equals(null))
+//			{
+//				listeCodesErreur.add(CodesResultatServlets.NOM_PAS_RENSEIGNE);
+//			}
+//			if(prenom.equals(null))
+//			{
+//				listeCodesErreur.add(CodesResultatServlets.PRENOM_PAS_RENSEIGNE);
+//			}
+//			if(pseudo.equals(null))
+//			{
+//				listeCodesErreur.add(CodesResultatServlets.PSEUDO_PAS_RENSEIGNE);
+//			}
+//			if(email.equals(null))
+//			{
+//				listeCodesErreur.add(CodesResultatServlets.EMAIL_PAS_RENSEIGNE);
+//			}
+//			if(rue.equals(null))
+//			{
+//				listeCodesErreur.add(CodesResultatServlets.RUE_PAS_RENSEIGNEE);
+//			}
+//			if(cp.equals(null))
+//			{
+//				listeCodesErreur.add(CodesResultatServlets.CP_PAS_RENSEIGNE);
+//			}
+//			if(ville.equals(null))
+//			{
+//				listeCodesErreur.add(CodesResultatServlets.VILLE_PAS_RENSEIGNEE);
+//			}
+//			if(mdp.equals(null))
+//			{
+//				listeCodesErreur.add(CodesResultatServlets.MDP_PAS_RENSEIGNE);
+//			}
+//			if(mdp2.equals(null))
+//			{
+//				listeCodesErreur.add(CodesResultatServlets.MDP2_PAS_RENSEIGNE);
+//			}
+//			if(!mdp.equals(mdp2))
+//			{
+//				listeCodesErreur.add(CodesResultatServlets.MDP_DIFFERENTS);
+//			}
 			
 			
-				//Si toujours aucune erreur
-				if(listeCodesErreur.size()<1)
-				{
-					//Je créé un nouvel utilisateur 
+//				//Si toujours aucune erreur
+//				if(listeCodesErreur.size()<1)
+//				{
+//					//Je créé un nouvel utilisateur 
 					UtilisateurManager utilisateurManager = new UtilisateurManager();
 					try {
 						utilisateurManager.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
@@ -107,17 +107,17 @@ public class ServletCreationCompte extends HttpServlet {
 						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/listeEncheres.jsp");
 						rd.forward(request, response);
 					} catch (BusinessException e) {
-						//Sinon je retourne à la page d'ajout pour indiquer les problèmes:
-						e.printStackTrace();
-						request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
-						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/creationCompte.jsp");
-						rd.forward(request, response);
+//						//Sinon je retourne à la page d'ajout pour indiquer les problèmes:
+//						e.printStackTrace();
+//						request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
+//						RequestDispatcher rd = request.getRequestDispatcher("creationCompte.jsp");
+//						rd.forward(request, response);
 					}
-					
-					
-					
-				
-				}
+//					
+//					
+//					
+//				
+//				}
 			
 	
 		}

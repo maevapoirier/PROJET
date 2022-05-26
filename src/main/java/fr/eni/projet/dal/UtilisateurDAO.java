@@ -16,8 +16,10 @@ public void update(Utilisateur u) throws BusinessException;
 public void delete (Utilisateur u) throws BusinessException;
 boolean Select_all(Utilisateur u);
 boolean loginUtilisateur(String noUtilisateur, String motDePasse);
-boolean findByEmail(String email);
-boolean findByPseudo(String pseudo);
+public Utilisateur findByEmail(String email);
+public Utilisateur findByPseudo(String pseudo);
+public Utilisateur findById(int id);
+
 
 
 }

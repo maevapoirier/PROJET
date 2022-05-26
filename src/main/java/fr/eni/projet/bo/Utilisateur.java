@@ -16,7 +16,7 @@ public class Utilisateur {
 	private String ville;
 	private String motDePasse;
 	private int credit;
-	private boolean administrateur = false;
+	private byte administrateur;
 	
 
 //	private List<ArticleVendu> articleVendu;
@@ -27,8 +27,8 @@ public class Utilisateur {
 	public Utilisateur() {
 
 	}
-	 //tous les paramètres
-	public Utilisateur(String pseudo,String nom,String prenom,String email,String telephone,String rue,int codePostal,String ville,String motDePasse,int credit,boolean administrateur) {
+	 //tous les paramï¿½tres
+	public Utilisateur(String pseudo,String nom,String prenom,String email,String telephone,String rue,int codePostal,String ville,String motDePasse,int credit,byte administrateur) {
 		super();
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -133,8 +133,8 @@ public class Utilisateur {
 	public boolean isAdministrateur() {
 		return administrateur;
 	}
-	public void setAdministrateur(boolean administrateur) {
-		this.administrateur = administrateur;
+	public void setAdministrateur(byte b) {
+		this.administrateur = b;
 	}
 	
 	//ToString
