@@ -54,7 +54,7 @@ public class ServletConnexionDeconnexion extends HttpServlet {
 			session.setAttribute("utilisateur", utilisateur);
 			
 			//Si la case "se souvenir de moi" est cochée on envoie 2 cookies (login et mdp)
-			if(request.getParameter("souvenir").equals("checked")) {
+			/*if(request.getParameter("souvenir").equals("checked")) {
 				Cookie cookie1 = new Cookie("login", email);
 				cookie1.setMaxAge(300000000); //environ 10 ans 
 				cookie1.setPath("/WEB-INF/jsp/connexion.jsp");
@@ -64,12 +64,12 @@ public class ServletConnexionDeconnexion extends HttpServlet {
 				cookie2.setPath("/WEB-INF/jsp/connexion.jsp");
 				response.addCookie(cookie2);
 			}
+			*/
 			
-			
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/listeEncheres.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ListeEncheres.jsp");
 			rd.forward(request, response);
 		}else {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/connexion.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion.jsp");
 			rd.forward(request, response);
 		}
 

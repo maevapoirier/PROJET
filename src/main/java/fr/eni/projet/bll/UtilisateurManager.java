@@ -19,7 +19,7 @@ public class UtilisateurManager {
 		{
 			BusinessException businessException = new BusinessException();
 			Utilisateur utilisateur = utilisateurDAO.findByEmail(email);
-			System.out.println(utilisateur);
+			System.out.println(utilisateur+" "+utilisateur.getMotDePasse()+"  "+motDePasse);
 			if (utilisateur.getMotDePasse().equals(motDePasse))
 			{
 				return utilisateur;

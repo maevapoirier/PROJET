@@ -12,14 +12,14 @@ import fr.eni.projet.bo.Utilisateur;
 
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
-	private static final String INSERT = "INSERT INTO Utilisateur(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
-	private static final String SELECT = "SELECT * from Utilisateur (no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
-	private static final String CREATE = "CREATE INTO Utilisateur (no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
-	private static final String UPDATE = "UPDATE Utilisateur set pseudo=?,nom=?,prenom=?,email=?,telephone=?,rue=?,code_postal=?,ville=?,mot_de_passe=?,credit=?,administrateur=?) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
-	private static final String DELETE = "DELETE * FROM Utilisateur WHERE no_utilisateur =?";
-	private static final String FIND_USER_BY_EMAIL = "SELECT * FROM Utilisateur WHERE email=?";
-	private static final String FIND_USER_BY_ID = "SELECT * FROM Utilisateur WHERE id=?";
-	private static final String FIND_USER_BY_PSEUDO = "SELECT * FROM Utilisateur WHERE pseudo=?";
+	private static final String INSERT = "INSERT INTO utilisateurs(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
+	private static final String SELECT = "SELECT * from Utilisateurs (no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
+	private static final String CREATE = "CREATE INTO Utilisateurs (no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
+	private static final String UPDATE = "UPDATE Utilisateurs set pseudo=?,nom=?,prenom=?,email=?,telephone=?,rue=?,code_postal=?,ville=?,mot_de_passe=?,credit=?,administrateur=?) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
+	private static final String DELETE = "DELETE * FROM Utilisateurs WHERE no_utilisateur =?";
+	private static final String FIND_USER_BY_EMAIL = "SELECT * FROM utilisateurs WHERE email=?";
+	private static final String FIND_USER_BY_ID = "SELECT * FROM Utilisateurs WHERE id=?";
+	private static final String FIND_USER_BY_PSEUDO = "SELECT * FROM Utilisateurs WHERE pseudo=?";
 
 	static Connection con;
 	static PreparedStatement ps;
@@ -143,13 +143,21 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	@Override
 	public Utilisateur findByEmail(String email) {
 		Utilisateur utilisateur = new Utilisateur();
+		System.out.println(email);
 		try (Connection con = ConnectionProvider.getConnection()) {
+			
+			if (con != null)
+			{
+				System.out.println("connexion BDD ok");
+			}
 
 			PreparedStatement ps = con.prepareStatement(FIND_USER_BY_EMAIL);
 			ps.setString(1, email);
+			System.out.println(ps);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				utilisateur.setNoUtilisateur(rs.getInt("noUtilisateur"));
+				System.out.println("rs is not null");
+				utilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
 				utilisateur.setPseudo(rs.getString("pseudo"));
 				utilisateur.setNom(rs.getString("nom"));
 				utilisateur.setPrenom(rs.getString("prenom"));

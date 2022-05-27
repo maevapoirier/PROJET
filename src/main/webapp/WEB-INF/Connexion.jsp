@@ -44,8 +44,8 @@
 				value="<%=email %>" size="20"
 				maxlength="60" /> 
 			<br /> <label for="motdepasse">Mot de passe <span
-				class="requis">*</span></label> <input type="password" id="motdepasse"
-				name="motdepasse" value="<%=motDePasse %>" size="20" maxlength="20" />  <br />
+				class="requis">*</span></label> <input type="password" id="password"
+				name="password" value="<%=motDePasse %>" size="20" maxlength="20" />  <br />
 				
 				Se souvenir de moi ? <input type="checkbox" name="souvenir" value="checked" /><br />
 				
