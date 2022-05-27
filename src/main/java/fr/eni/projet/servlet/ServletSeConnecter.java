@@ -10,18 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ServletListeEncheres
+ * Servlet implementation class ServletSeConnecter
  */
-@WebServlet("/ServletListeEncheres")
-public class ServletListeEncheres extends HttpServlet {
+@WebServlet("/ServletSeConnecter")
+public class ServletSeConnecter extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/ListeEncheres.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/Connexion.jsp");
 		rd.forward(request, response);
 	}
 
@@ -34,3 +33,4 @@ public class ServletListeEncheres extends HttpServlet {
 	}
 
 }
+

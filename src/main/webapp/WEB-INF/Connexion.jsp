@@ -23,7 +23,7 @@
 	} // recuperer les cookies login et mdp et les mettre dans un objet javabean pour les réutiliser dans le formulaire
 %>
 
-	<form method="post" action="connexion">
+	<form method="post" action="ServletConnexionDeconnexion">
 		<fieldset>
 			<legend>Connexion</legend>
 			<p>Vous pouvez vous connecter via ce formulaire.</p>

@@ -10,7 +10,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerException;
 import fr.eni.projet.BusinessException;
 import fr.eni.projet.bo.Utilisateur;
 
-class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
+public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
 	private static final String INSERT = "INSERT INTO Utilisateur(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
 	private static final String SELECT = "SELECT * from Utilisateur (no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
