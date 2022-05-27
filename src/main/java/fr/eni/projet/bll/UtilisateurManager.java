@@ -15,10 +15,11 @@ public class UtilisateurManager {
 			this.utilisateurDAO=DAOFactory.getUtilisateurDAO();
 		}
 		
-		public Utilisateur connecterUtilisateur(String pseudo, String motDePasse)
+		public Utilisateur connecterUtilisateur(String email, String motDePasse)
 		{
 			BusinessException businessException = new BusinessException();
-			Utilisateur utilisateur = utilisateurDAO.findByPseudo(pseudo);
+			Utilisateur utilisateur = utilisateurDAO.findByEmail(email);
+			System.out.println(utilisateur);
 			if (utilisateur.getMotDePasse().equals(motDePasse))
 			{
 				return utilisateur;

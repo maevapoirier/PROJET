@@ -10,17 +10,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ServletSeConnecter
+ * Servlet implementation class ServletCreerUnCompte
  */
-@WebServlet("/ServletSeConnecter")
-public class ServletSeConnecter extends HttpServlet {
+@WebServlet("/ServletCreerUnCompte")
+public class ServletCreerUnCompte extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/Connexion.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/CreationCompte.jsp");
 		rd.forward(request, response);
 	}
 
@@ -28,8 +30,8 @@ public class ServletSeConnecter extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		doGet(request, response);
 	}
 
 }
-

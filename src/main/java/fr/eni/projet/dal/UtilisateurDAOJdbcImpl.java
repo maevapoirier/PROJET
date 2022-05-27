@@ -110,6 +110,11 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	public Utilisateur findByPseudo(String pseudo) {
 		Utilisateur utilisateur = new Utilisateur();
 		try (Connection con = ConnectionProvider.getConnection()) {
+			
+			if (con != null)
+			{
+				System.out.println("connexion BDD ok");
+			}
 
 			PreparedStatement ps = con.prepareStatement(FIND_USER_BY_PSEUDO);
 			ps.setString(1, pseudo);
@@ -140,7 +145,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		Utilisateur utilisateur = new Utilisateur();
 		try (Connection con = ConnectionProvider.getConnection()) {
 
-			PreparedStatement ps = con.prepareStatement(FIND_USER_BY_PSEUDO);
+			PreparedStatement ps = con.prepareStatement(FIND_USER_BY_EMAIL);
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
@@ -160,7 +165,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(utilisateur);
 		return utilisateur;
+		
 
 	}
 

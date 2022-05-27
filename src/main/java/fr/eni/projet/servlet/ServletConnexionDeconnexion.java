@@ -17,7 +17,7 @@ import fr.eni.projet.bo.Utilisateur;
 /**
  * Servlet implementation class ServletConnexion
  */
-@WebServlet("/ServletConnexion")
+@WebServlet("/Connexion")
 public class ServletConnexionDeconnexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -39,12 +39,12 @@ public class ServletConnexionDeconnexion extends HttpServlet {
 	 */
 	//DOPOST pour la connexion
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String login = request.getParameter("email");
+		String email = request.getParameter("email");
 		String mdp = request.getParameter("password");
 		
 		
 		UtilisateurManager utilisateurManager = new UtilisateurManager();
-		Utilisateur utilisateur = utilisateurManager.connecterUtilisateur(login, mdp);
+		Utilisateur utilisateur = utilisateurManager.connecterUtilisateur(email, mdp);
 		
 		if(utilisateur!=null)
 		{
@@ -55,11 +55,13 @@ public class ServletConnexionDeconnexion extends HttpServlet {
 			
 			//Si la case "se souvenir de moi" est cochée on envoie 2 cookies (login et mdp)
 			if(request.getParameter("souvenir").equals("checked")) {
-				Cookie cookie1 = new Cookie("login", login);
+				Cookie cookie1 = new Cookie("login", email);
 				cookie1.setMaxAge(300000000); //environ 10 ans 
+				cookie1.setPath("/WEB-INF/jsp/connexion.jsp");
 				response.addCookie(cookie1);
 				Cookie cookie2 = new Cookie("mdp", mdp);  //TODO mot de passe à crypter
 				cookie2.setMaxAge(300000000);
+				cookie2.setPath("/WEB-INF/jsp/connexion.jsp");
 				response.addCookie(cookie2);
 			}
 			
