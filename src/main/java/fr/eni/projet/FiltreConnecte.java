@@ -59,7 +59,7 @@ public class FiltreConnecte implements Filter {
 			RequestDispatcher rd = httpRequest.getRequestDispatcher("/WEB-INF/Connexion.jsp");
 			rd.forward(httpRequest, httpResponse);
 		}
-		chain.doFilter(request, response);
+		
 	}
 
 	/**
