@@ -143,20 +143,14 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	@Override
 	public Utilisateur findByEmail(String email) {
 		Utilisateur utilisateur = new Utilisateur();
-		System.out.println(email);
+	
 		try (Connection con = ConnectionProvider.getConnection()) {
 			
-			if (con != null)
-			{
-				System.out.println("connexion BDD ok");
-			}
-
 			PreparedStatement ps = con.prepareStatement(FIND_USER_BY_EMAIL);
 			ps.setString(1, email);
-			System.out.println(ps);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
-				System.out.println("rs is not null");
+				
 				utilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
 				utilisateur.setPseudo(rs.getString("pseudo"));
 				utilisateur.setNom(rs.getString("nom"));
@@ -173,7 +167,6 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println(utilisateur);
 		return utilisateur;
 		
 

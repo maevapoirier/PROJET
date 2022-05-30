@@ -25,14 +25,15 @@ public class ServletConnexionDeconnexion extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	//DOGET pour la deconnexion
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true); 
 		session.invalidate();
 		//httpRequest.getSession().setAttribute("utilisateur", null);
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/listeEncheres.jsp");
 		rd.forward(request, response);
-	}
+    }
+		
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -54,17 +55,19 @@ public class ServletConnexionDeconnexion extends HttpServlet {
 			session.setAttribute("utilisateur", utilisateur);
 			
 			//Si la case "se souvenir de moi" est cochée on envoie 2 cookies (login et mdp)
-			/*if(request.getParameter("souvenir").equals("checked")) {
+			String[] checkbox = request.getParameterValues("souvenir");
+			if (checkbox != null) {
+				System.out.println("la checkbox 'se souvenir de moi' est cochée");
 				Cookie cookie1 = new Cookie("login", email);
-				cookie1.setMaxAge(300000000); //environ 10 ans 
-				cookie1.setPath("/WEB-INF/jsp/connexion.jsp");
+				cookie1.setMaxAge(600); // durée de vie du cookie 10 min
+				cookie1.setPath("/PROJET");
 				response.addCookie(cookie1);
 				Cookie cookie2 = new Cookie("mdp", mdp);  //TODO mot de passe à crypter
-				cookie2.setMaxAge(300000000);
-				cookie2.setPath("/WEB-INF/jsp/connexion.jsp");
+				cookie2.setMaxAge(600);
+				cookie2.setPath("/PROJET");
 				response.addCookie(cookie2);
 			}
-			*/
+			
 			
 			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ListeEncheres.jsp");
 			rd.forward(request, response);

@@ -19,9 +19,12 @@
 	String motDePasse = "";
 	if(cookies!=null)
 	{
+		System.out.println("Je récupère des cookies");
 		for(int i=0; i<cookies.length; i++)
 		{
 			cookie = cookies[i]; // remplir le tableau de cookies
+			System.out.println("Nom : " + cookie.getName());
+			System.out.println("Valeur : " + cookie.getValue());
 			if(cookies[i].getName().equals(login))
 			{
 				email = cookies[i].getValue();

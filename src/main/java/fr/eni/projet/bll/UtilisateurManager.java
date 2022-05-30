@@ -19,7 +19,6 @@ public class UtilisateurManager {
 		{
 			BusinessException businessException = new BusinessException();
 			Utilisateur utilisateur = utilisateurDAO.findByEmail(email);
-			System.out.println(utilisateur+" "+utilisateur.getMotDePasse()+"  "+motDePasse);
 			if (utilisateur.getMotDePasse().equals(motDePasse))
 			{
 				return utilisateur;
@@ -31,18 +30,20 @@ public class UtilisateurManager {
 
 		public Utilisateur ajouterUtilisateur(String pseudo,String nom,String prenom,String email,String telephone,String rue,int codePostal,String ville,String motDePasse) throws BusinessException 
 		{
-			
+			System.out.println(pseudo);
 			BusinessException businessException = new BusinessException();
 			
 			// validation des données email dispo et pseudo dispo 
-			this.validerEmail(email, businessException);
-			this.validerPseudo(pseudo, businessException);
+			//this.validerEmail(email, businessException);
+			//this.validerPseudo(pseudo, businessException);
 			
 			
 			Utilisateur utilisateur = null;
+			System.out.println("je passe par l'utilisateur manager");
 			
 			if(!businessException.hasErreurs())
 			{
+				System.out.println("pas d'erreur jusque là");
 				utilisateur = new Utilisateur();
 				utilisateur.setPseudo(pseudo);
 				utilisateur.setNom(nom);
@@ -56,14 +57,17 @@ public class UtilisateurManager {
 				utilisateur.setCredit(credit);
 				utilisateur.setAdministrateur(administrateur);
 			
-				
+				System.out.println(utilisateur);
 				this.utilisateurDAO.insert(utilisateur);
 			}
 			else
-			{
+			{	
+				System.out.println("business exception");
 				throw businessException;
 			}
+			System.out.println("RETURN " + utilisateur);
 			return utilisateur;
+			
 		}
 
 		private void validerEmail(String email, BusinessException businessException) {
