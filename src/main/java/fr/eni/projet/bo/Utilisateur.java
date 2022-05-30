@@ -12,7 +12,7 @@ public class Utilisateur {
 	private String email;
 	private String telephone;
 	private String rue;
-	private int codePostal;
+	private String codePostal;
 	private String ville;
 	private String motDePasse;
 	private int credit;
@@ -27,7 +27,7 @@ public class Utilisateur {
 	public Utilisateur() {
 	}
 	 //tous les param�tres
-	public Utilisateur(String pseudo,String nom,String prenom,String email,String telephone,String rue,int codePostal,String ville,String motDePasse,int credit,byte administrateur) {
+	public Utilisateur(String pseudo,String nom,String prenom,String email,String telephone,String rue,String codePostal,String ville,String motDePasse,int credit,byte administrateur) {
 		this.enchere = enchere; 	
 		this.pseudo = pseudo;
 		this.nom = nom;
@@ -43,6 +43,17 @@ public class Utilisateur {
 //		this.articleVendu = new ArrayList<String>(); 
 	}
 	
+	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
+			String codePostal, String ville) {
+		this.pseudo = pseudo;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.telephone = telephone;
+		this.rue = rue;
+		this.codePostal = codePostal;
+		this.ville = ville;
+	}
 	public ArrayList<Enchere> getEnchere() {
 		return enchere;
 	}
@@ -100,11 +111,11 @@ public class Utilisateur {
 		this.rue = rue;
 	}
 	  //code postal
-	public int getCodePostal() {
+	public String getCodePostal() {
 		return codePostal;
 	}
-	public void setCodePostal(int codePostal) {
-		this.codePostal = codePostal;
+	public void setCodePostal(String codePostal2) {
+		this.codePostal = codePostal2;
 	}
 	  //ville
 	public String getVille() {

@@ -65,6 +65,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	public void insert(Utilisateur u) throws BusinessException {
 		if (u == null) // vérification si l'objet saisi est null
 		{
+			System.out.println("L'objet saisi est null");
 			BusinessException businessException = new BusinessException(); // si oui, on lève une business exception
 			businessException.ajouterErreur(CodesResultatDAL.INSERT_OBJET_NULL); // en envoyant un code
 																					// INSERT_OBJET_NULL
@@ -72,6 +73,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 		}
 		int status = 0;
 		try {
+			System.out.println("L'objet saisi n'est pas null");
 			con = ConnectionProvider.getConnection();
 
 			ps = con.prepareStatement(INSERT, PreparedStatement.RETURN_GENERATED_KEYS);
@@ -81,11 +83,13 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			ps.setString(4, u.getEmail());
 			ps.setString(5, u.getTelephone());
 			ps.setString(6, u.getRue());
-			ps.setString(7, u.getCodePostal() + "");
+			ps.setString(7, u.getCodePostal());
 			ps.setString(8, u.getVille());
 			ps.setString(9, u.getMotDePasse());
 			ps.setInt(10, u.getCredit());
+			ps.setInt(11, u.getNoUtilisateur());
 			ps.executeUpdate();
+			System.out.println("je passe par l'utilisateurDAOJdbcImpl");
 			ResultSet rs = ps.getGeneratedKeys();
 			if (rs.next()) {
 				u.setNoUtilisateur(rs.getInt(1));
@@ -127,16 +131,18 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 				utilisateur.setEmail(rs.getString("email"));
 				utilisateur.setTelephone(rs.getString("telephone"));
 				utilisateur.setRue(rs.getString("rue"));
-				utilisateur.setCodePostal(rs.getInt("code_postal"));
+				utilisateur.setCodePostal(rs.getString("code_postal"));
 				utilisateur.setVille(rs.getString("ville"));
 				utilisateur.setMotDePasse(rs.getString("mot_de_passe"));
 				utilisateur.setCredit(rs.getInt("credit"));
 				utilisateur.setAdministrateur(rs.getByte("administrateur"));
+				
+				return utilisateur;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return utilisateur;
+		return null;
 
 	}
 
@@ -158,16 +164,20 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 				utilisateur.setEmail(rs.getString("email"));
 				utilisateur.setTelephone(rs.getString("telephone"));
 				utilisateur.setRue(rs.getString("rue"));
-				utilisateur.setCodePostal(rs.getInt("code_postal"));
+				utilisateur.setCodePostal(rs.getString("code_postal"));
 				utilisateur.setVille(rs.getString("ville"));
 				utilisateur.setMotDePasse(rs.getString("mot_de_passe"));
 				utilisateur.setCredit(rs.getInt("credit"));
 				utilisateur.setAdministrateur(rs.getByte("administrateur"));
+				
+				return utilisateur;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			
 		}
-		return utilisateur;
+		return null;
+		
 		
 
 	}
@@ -221,7 +231,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 				u.setEmail(rs.getString(5));
 				u.setTelephone(rs.getString(6));
 				u.setRue(rs.getString(7));
-				u.setCodePostal(rs.getInt(8));
+				u.setCodePostal(rs.getString(8));
 				u.setVille(rs.getString(9));
 				u.setMotDePasse(rs.getString(10));
 				u.setCredit(rs.getInt(11));

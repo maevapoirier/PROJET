@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.projet.BusinessException;
 import fr.eni.projet.bll.UtilisateurManager;
+import fr.eni.projet.bo.Utilisateur;
 
 /**
  * Servlet implementation class ServletConnexion
@@ -27,7 +28,11 @@ public class ServletCreationCompte extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doPost(request, response);
+		Utilisateur user = new Utilisateur("","","","","","","","");
+		request.setAttribute("utilisateur", user);
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/CreationCompte.jsp");
+		rd.forward(request, response);
+		
 	}
 
 	/**
@@ -42,84 +47,37 @@ public class ServletCreationCompte extends HttpServlet {
 		String telephone = request.getParameter("telephone");
 		String rue = request.getParameter("rue");
 		String cp = request.getParameter("cp");
-		int codePostal = Integer.parseInt(cp);
 		String ville = request.getParameter("ville");
 		String mdp = request.getParameter("motdepasse");
 		String mdp2 = request.getParameter("confirmation");
 		
-		List<Integer> listeCodesErreur=new ArrayList<>();
+		BusinessException listeCodesErreur=new BusinessException();
 		
-		
-		
-		
-			if(nom.equals(null))
-			{
-				listeCodesErreur.add(CodesResultatServlets.NOM_PAS_RENSEIGNE);
-			}
-			if(prenom.equals(null))
-			{
-				listeCodesErreur.add(CodesResultatServlets.PRENOM_PAS_RENSEIGNE);
-			}
-			if(pseudo.equals(null))
-			{
-				listeCodesErreur.add(CodesResultatServlets.PSEUDO_PAS_RENSEIGNE);
-			}
-			if(email.equals(null))
-			{
-				listeCodesErreur.add(CodesResultatServlets.EMAIL_PAS_RENSEIGNE);
-			}
-			if(rue.equals(null))
-			{
-				listeCodesErreur.add(CodesResultatServlets.RUE_PAS_RENSEIGNEE);
-			}
-			if(cp.equals(null))
-			{
-				listeCodesErreur.add(CodesResultatServlets.CP_PAS_RENSEIGNE);
-			}
-			if(ville.equals(null))
-			{
-				listeCodesErreur.add(CodesResultatServlets.VILLE_PAS_RENSEIGNEE);
-			}
-			if(mdp.equals(null))
-			{
-				listeCodesErreur.add(CodesResultatServlets.MDP_PAS_RENSEIGNE);
-			}
-			if(mdp2.equals(null))
-			{
-				listeCodesErreur.add(CodesResultatServlets.MDP2_PAS_RENSEIGNE);
-			}
-			if(!mdp.equals(mdp2))
-			{
-				listeCodesErreur.add(CodesResultatServlets.MDP_DIFFERENTS);
-			}
 			
 			
-				//Si toujours aucune erreur
-				if(listeCodesErreur.size()<1)
-				{
+			
 					//Je créé un nouvel utilisateur 
 					UtilisateurManager utilisateurManager = new UtilisateurManager();
 					try {
-						utilisateurManager.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, rue, codePostal, ville, mdp);
+						utilisateurManager.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp, mdp2);
 						//Si tout se passe bien, je vais vers la page de consultation:
 						HttpServletRequest httpRequest = (HttpServletRequest) request;
 						httpRequest.getSession().setAttribute("session", pseudo);
-						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/jsp/listeEncheres.jsp");
+						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ListeEncheres.jsp");
 						rd.forward(request, response);
 					} catch (BusinessException e) {
-						//Sinon je retourne à la page d'ajout pour indiquer les problèmes:
+						//Sinon je retourne à la page d'ajout pour indiquer les problèmes
+						
 						e.printStackTrace();
 						request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
-						RequestDispatcher rd = request.getRequestDispatcher("CreationCompte.jsp");
+						Utilisateur user = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, cp, ville);
+						request.setAttribute("utilisateur", user);
+						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/CreationCompte.jsp");
 						rd.forward(request, response);
 					}
 					
 					
 					
-				
-				}
-			
-	
 		}
 	}
 	
