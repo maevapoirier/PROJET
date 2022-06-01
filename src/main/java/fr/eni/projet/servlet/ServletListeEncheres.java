@@ -1,6 +1,7 @@
 package fr.eni.projet.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,8 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.projet.BusinessException;
-import fr.eni.projet.dal.ArticleVenduDAOOLD;
-import fr.eni.projet.dal.ArticleVenduDAOJdbcImplOLD;
+import fr.eni.projet.bll.DAOFactory;
+import fr.eni.projet.bo.ArticleVendu;
+import fr.eni.projet.dal.ArticleVenduDAO;
 
 /**
  * Servlet implementation class ServletListeEncheres
@@ -19,7 +21,7 @@ import fr.eni.projet.dal.ArticleVenduDAOJdbcImplOLD;
 @WebServlet("/ServletListeEncheres")
 public class ServletListeEncheres extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ArticleVenduDAOOLD articleVenduDAO;
+	private ArticleVenduDAO articleVenduDAO;
        
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,19 +39,17 @@ public class ServletListeEncheres extends HttpServlet {
 			e.printStackTrace();
 		}*/
 		
-		articleVenduDAO = new ArticleVenduDAOJdbcImplOLD();
+		ArticleVenduDAO articleVenduDAO = DAOFactory.getArticleVenduDAO();
+		
 		try {
-			System.out.println(articleVenduDAO.selectAllCurrentAuctions());
-		} catch (BusinessException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		try {
-			request.setAttribute("maListe", articleVenduDAO.selectAllCurrentAuctions());
+			List<ArticleVendu> liste = (List<ArticleVendu>) articleVenduDAO.selectAllCurentAuctions();
+			System.out.println(liste);
+			request.setAttribute("maListe", liste);
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/ListeEncheres.jsp");
 		rd.forward(request, response);
 	}

@@ -11,6 +11,7 @@ import fr.eni.projet.BusinessException;
 import fr.eni.projet.bo.ArticleVendu;
 import fr.eni.projet.bo.Categorie;
 import fr.eni.projet.bo.Enchere;
+import fr.eni.projet.bo.Retrait;
 import fr.eni.projet.bo.Utilisateur;
 
 public class ArticleVenduDAOJdbcImpl  implements ArticleVenduDAO {	
@@ -22,149 +23,12 @@ private static final String DELETE = "DELETE * FROM ARTICLES_VENDUS WHERE no_art
 private static final String FIND_ARTICLE_BY_NUMBER = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=?";
 private static final String FIND_ARTICLE_BY_SELLER = "SELECT * FROM ARTICLES_VENDUS WHERE no_utilisateur=?";
 private static final String FIND_USER_BY_BUYER = "SELECT * FROM ARTICLES_VENDUS WHERE no_acheteur=?";
-private static final String SELECT_CURRENT_AUCTIONS = "SELECT * from articles_vendus WHERE getDate() BETWEEN date_debut_encheres AND date_fin_encheres ORDER BY date_debut_encheres ASC";
+//private static final String SELECT_CURRENT_AUCTIONS = "SELECT * from articles_vendus WHERE getDate() BETWEEN date_debut_encheres AND date_fin_encheres ORDER BY date_debut_encheres ASC";
+private static final String SELECT_CURRENT_AUCTIONS = "SELECT * FROM articles_vendus av INNER JOIN utilisateurs ut ON av.no_utilisateur = ut.no_utilisateur INNER JOIN categories ca ON av.no_categorie = ca.no_categorie LEFT JOIN encheres en ON av.no_article = en.no_article LEFT JOIN retraits re ON av.no_article = re.no_article WHERE GETDATE() BETWEEN av.date_debut_encheres AND av.date_fin_encheres";
 
 static Connection con;
 static PreparedStatement ps;
 
-
-
-//@Override
-//public  Select_all(Utilisateur u) {
-//	boolean status = false;
-//	try (Connection con = ConnectionProvider.getConnection()) {
-//		PreparedStatement ps = con.prepareStatement(SELECT_ALL);
-//		ps.setString(1, u.getPseudo());
-//		ps.setString(2, u.getEmail());
-//		ps.setString(3, u.getMotDePasse());
-//		ResultSet rs = ps.executeQuery();
-//		status = rs.next();
-//
-//	} catch (Exception e)
-//
-//	{
-//		e.printStackTrace();
-//	}
-//	return status;
-//}
-//
-
-//
-//@Override
-//public Utilisateur findByPseudo(String pseudo) {
-//	Utilisateur utilisateur = new Utilisateur();
-//	try (Connection con = ConnectionProvider.getConnection()) {
-//		
-//		if (con != null)
-//		{
-//			System.out.println("connexion BDD ok");
-//		}
-//
-//		PreparedStatement ps = con.prepareStatement(FIND_USER_BY_PSEUDO);
-//		ps.setString(1, pseudo);
-//		ResultSet rs = ps.executeQuery();
-//		if (rs.next()) {
-//			utilisateur.setNoUtilisateur(rs.getInt("noUtilisateur"));
-//			utilisateur.setPseudo(rs.getString("pseudo"));
-//			utilisateur.setNom(rs.getString("nom"));
-//			utilisateur.setPrenom(rs.getString("prenom"));
-//			utilisateur.setEmail(rs.getString("email"));
-//			utilisateur.setTelephone(rs.getString("telephone"));
-//			utilisateur.setRue(rs.getString("rue"));
-//			utilisateur.setCodePostal(rs.getString("code_postal"));
-//			utilisateur.setVille(rs.getString("ville"));
-//			utilisateur.setMotDePasse(rs.getString("mot_de_passe"));
-//			utilisateur.setCredit(rs.getInt("credit"));
-//			utilisateur.setAdministrateur(rs.getByte("administrateur"));
-//			
-//			return utilisateur;
-//		}
-//	} catch (Exception e) {
-//		e.printStackTrace();
-//	}
-//	return null;
-//
-//}
-//
-//@Override
-//public Utilisateur findByEmail(String email) {
-//	Utilisateur utilisateur = new Utilisateur();
-//
-//	try (Connection con = ConnectionProvider.getConnection()) {
-//		
-//		PreparedStatement ps = con.prepareStatement(FIND_USER_BY_EMAIL);
-//		ps.setString(1, email);
-//		ResultSet rs = ps.executeQuery();
-//		if (rs.next()) {
-//			
-//			utilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
-//			utilisateur.setPseudo(rs.getString("pseudo"));
-//			utilisateur.setNom(rs.getString("nom"));
-//			utilisateur.setPrenom(rs.getString("prenom"));
-//			utilisateur.setEmail(rs.getString("email"));
-//			utilisateur.setTelephone(rs.getString("telephone"));
-//			utilisateur.setRue(rs.getString("rue"));
-//			utilisateur.setCodePostal(rs.getString("code_postal"));
-//			utilisateur.setVille(rs.getString("ville"));
-//			utilisateur.setMotDePasse(rs.getString("mot_de_passe"));
-//			utilisateur.setCredit(rs.getInt("credit"));
-//			utilisateur.setAdministrateur(rs.getByte("administrateur"));
-//			
-//			return utilisateur;
-//		}
-//	} catch (Exception e) {
-//		e.printStackTrace();
-//		
-//	}
-//	return null;
-//	
-//	
-//
-//}
-//
-
-//
-//@Override
-//public void delete(Utilisateur u) {
-//
-//	try (Connection con = ConnectionProvider.getConnection()) {
-//		PreparedStatement ps = con.prepareStatement(DELETE);
-//		ps.setInt(1, u.getNoUtilisateur());
-//		ps.executeUpdate();
-//	} catch (Exception e) {
-//		e.printStackTrace();
-//	}
-//
-//}
-//
-//@Override
-//public Utilisateur findById(int id) {
-//	Utilisateur u = new Utilisateur();
-//	try (Connection con = ConnectionProvider.getConnection()) {
-//		PreparedStatement ps = con.prepareStatement(FIND_USER_BY_ID);
-//		ps.setInt(1, id);
-//		ResultSet rs = ps.executeQuery();
-//		while (rs.next()) {
-//			u.setNoUtilisateur(rs.getInt(1));
-//			u.setPseudo(rs.getString(2));
-//			u.setNom(rs.getString(3));
-//			u.setPrenom(rs.getString(4));
-//			u.setEmail(rs.getString(5));
-//			u.setTelephone(rs.getString(6));
-//			u.setRue(rs.getString(7));
-//			u.setCodePostal(rs.getString(8));
-//			u.setVille(rs.getString(9));
-//			u.setMotDePasse(rs.getString(10));
-//			u.setCredit(rs.getInt(11));
-//			u.setAdministrateur(rs.getByte(12));
-//		}
-//	}
-//
-//	catch (Exception e) {
-//		e.printStackTrace();
-//	}
-//	return u;
-//}
 
 @Override
 public void insert(ArticleVendu a) throws BusinessException {
@@ -207,7 +71,7 @@ public void insert(ArticleVendu a) throws BusinessException {
 
 @Override
 public List<ArticleVendu> selectAll() throws BusinessException {
-	// pas besoin pour le moment
+	// TODO pas besoin pour le moment
 	return null;
 }
 
@@ -233,15 +97,71 @@ public void update(ArticleVendu a) throws BusinessException {
 
 @Override
 public void delete(int no_article) throws BusinessException {
-	// TODO Auto-generated method stub
+	// TODO Pas besoin pour le moment
 	
 }
 
 @Override
 public ArticleVendu findArticleByNo(int no_article) throws BusinessException {
-	// TODO Auto-generated method stub
-	return null;
+	
+	ArticleVendu article = new ArticleVendu();
+	try (Connection con = ConnectionProvider.getConnection()) {
+		
+		if (con != null)
+		{
+			System.out.println("connexion BDD ok");
+		}
+
+		PreparedStatement ps = con.prepareStatement(FIND_ARTICLE_BY_NUMBER);
+		ps.setInt(1, no_article);
+		ResultSet rs = ps.executeQuery();
+		if (rs.next()) {
+
+			article.setNoArticle(rs.getInt("noArticle"));
+			article.setNomArticle(rs.getString("nomArticle"));
+			article.setDescription(rs.getString("description"));
+			article.setDateDebutEncheres(rs.getDate("dateDebutEncheres"));
+			article.setDateFinEncheres(rs.getDate("dateFinEncheres"));
+			article.setMiseAPrix(rs.getDouble("miseAPrix"));
+			article.setEtatVente(rs.getString("etatVente"));
+			
+			Utilisateur unUtilisateur=new Utilisateur();
+			unUtilisateur.setNoUtilisateur(rs.getInt("noUtilisateur"));
+			unUtilisateur.setPseudo(rs.getString("pseudo"));
+			article.setUtilisateur(unUtilisateur);
+			
+			Utilisateur acheteur=new Utilisateur();
+			acheteur.setNoUtilisateur(rs.getInt("noUtilisateur"));
+			acheteur.setPseudo(rs.getString("pseudo"));
+			article.setAcheteur(acheteur);
+			
+			Retrait retrait = new Retrait();
+			retrait.setRue(rs.getString("rue"));
+			retrait.setCode_postal(rs.getString("codePostal"));
+			retrait.setVille(rs.getString("ville"));
+			article.setRetrait(retrait);
+			
+			
+			Categorie uneCategorie=new Categorie();
+			uneCategorie.setNoCategorie(rs.getInt("noCategorie"));
+			uneCategorie.setLibelle(rs.getString("libelle"));
+			article.setCategorie(uneCategorie);
+			
+			Enchere uneEnchere=new Enchere();
+			uneEnchere.setDateEnchere(rs.getDate("dateEnchere"));
+			uneEnchere.setMontant_enchere(rs.getDouble("montant_enchere"));
+			article.setEnchere(uneEnchere);
+			
+			return article;
+		}
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
+
+	return article;
 }
+
+
 
 @Override
 public List<ArticleVendu> findArticleBySeller(int no_utilisateur) throws BusinessException {
