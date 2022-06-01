@@ -21,10 +21,10 @@ private static final String SELECT_ALL = "SELECT * from ARTICLES_VENDUS";
 private static final String UPDATE = "UPDATE ARTICLES_VENDUS set nom_article=?,description=?,date_debut_encheres=?,date_fin_encheres=?,prix_initial=?,prix_vente=?,etat_vente=?) VALUES(?,?,?,?,?,?,?);";
 private static final String DELETE = "DELETE * FROM ARTICLES_VENDUS WHERE no_article =?";
 private static final String FIND_ARTICLE_BY_NUMBER = "SELECT * FROM ARTICLES_VENDUS WHERE no_article=?";
-private static final String FIND_ARTICLE_BY_SELLER = "SELECT * FROM ARTICLES_VENDUS WHERE no_utilisateur=?";
-private static final String FIND_USER_BY_BUYER = "SELECT * FROM ARTICLES_VENDUS WHERE no_acheteur=?";
-//private static final String SELECT_CURRENT_AUCTIONS = "SELECT * from articles_vendus WHERE getDate() BETWEEN date_debut_encheres AND date_fin_encheres ORDER BY date_debut_encheres ASC";
-private static final String SELECT_CURRENT_AUCTIONS = "SELECT * FROM articles_vendus av INNER JOIN utilisateurs ut ON av.no_utilisateur = ut.no_utilisateur INNER JOIN categories ca ON av.no_categorie = ca.no_categorie LEFT JOIN encheres en ON av.no_article = en.no_article LEFT JOIN retraits re ON av.no_article = re.no_article WHERE GETDATE() BETWEEN av.date_debut_encheres AND av.date_fin_encheres";
+private static final String FIND_ARTICLE_BY_SELLER = "SELECT * FROM ARTICLES_VENDUS av INNER JOIN utilisateurs ut ON av.no_utilisateur = ut.no_utilisateur WHERE no_utilisateur=?";
+private static final String FIND_ARTICLE_BY_BUYER = "SELECT * FROM ARTICLES_VENDUS av INNER JOIN utilisateurs ut ON av.no_acheteur = ut.no_utilisateur WHERE no_acheteur=?";
+private static final String FIND_ARTICLE_BY_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS av INNER JOIN categories cat ON av.no_categorie = cat.no_categorie WHERE cat.libelle=?";
+private static final String SELECT_CURRENT_AUCTIONS = "SELECT * FROM articles_vendus av INNER JOIN utilisateurs ut ON av.no_utilisateur = ut.no_utilisateur INNER JOIN categories ca ON av.no_categorie = ca.no_categorie LEFT JOIN encheres en ON av.no_article = en.no_article LEFT JOIN retraits re ON av.no_article = re.no_article WHERE GETDATE() BETWEEN av.date_debut_encheres AND av.date_fin_encheres ORDER BY date_debut_encheres ASC";
 
 static Connection con;
 static PreparedStatement ps;
@@ -101,6 +101,8 @@ public void delete(int no_article) throws BusinessException {
 	
 }
 
+
+
 @Override
 public ArticleVendu findArticleByNo(int no_article) throws BusinessException {
 	
@@ -117,38 +119,35 @@ public ArticleVendu findArticleByNo(int no_article) throws BusinessException {
 		ResultSet rs = ps.executeQuery();
 		if (rs.next()) {
 
-			article.setNoArticle(rs.getInt("noArticle"));
-			article.setNomArticle(rs.getString("nomArticle"));
+			article.setNoArticle(rs.getInt("no_article"));
+			article.setNomArticle(rs.getString("nom_article"));
 			article.setDescription(rs.getString("description"));
-			article.setDateDebutEncheres(rs.getDate("dateDebutEncheres"));
-			article.setDateFinEncheres(rs.getDate("dateFinEncheres"));
-			article.setMiseAPrix(rs.getDouble("miseAPrix"));
-			article.setEtatVente(rs.getString("etatVente"));
+			article.setDateDebutEncheres(rs.getDate("date_debut_encheres"));
+			article.setDateFinEncheres(rs.getDate("date_fin_encheres"));
+			article.setMiseAPrix(rs.getDouble("prix_initial"));
+			article.setEtatVente(rs.getString("etat_vente"));
+			article.setAcheteur(rs.getInt("no_acheteur"));
 			
 			Utilisateur unUtilisateur=new Utilisateur();
 			unUtilisateur.setNoUtilisateur(rs.getInt("noUtilisateur"));
 			unUtilisateur.setPseudo(rs.getString("pseudo"));
 			article.setUtilisateur(unUtilisateur);
 			
-			Utilisateur acheteur=new Utilisateur();
-			acheteur.setNoUtilisateur(rs.getInt("noUtilisateur"));
-			acheteur.setPseudo(rs.getString("pseudo"));
-			article.setAcheteur(acheteur);
 			
 			Retrait retrait = new Retrait();
 			retrait.setRue(rs.getString("rue"));
-			retrait.setCode_postal(rs.getString("codePostal"));
+			retrait.setCode_postal(rs.getString("code_postal"));
 			retrait.setVille(rs.getString("ville"));
 			article.setRetrait(retrait);
 			
 			
 			Categorie uneCategorie=new Categorie();
-			uneCategorie.setNoCategorie(rs.getInt("noCategorie"));
+			uneCategorie.setNoCategorie(rs.getInt("no_categorie"));
 			uneCategorie.setLibelle(rs.getString("libelle"));
 			article.setCategorie(uneCategorie);
 			
 			Enchere uneEnchere=new Enchere();
-			uneEnchere.setDateEnchere(rs.getDate("dateEnchere"));
+			uneEnchere.setDateEnchere(rs.getDate("date_enchere"));
 			uneEnchere.setMontant_enchere(rs.getDouble("montant_enchere"));
 			article.setEnchere(uneEnchere);
 			
@@ -184,26 +183,26 @@ public List<ArticleVendu> selectAllCurentAuctions() throws BusinessException {
  			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				ArticleVendu uneEnchereEnCours=new ArticleVendu();
-				uneEnchereEnCours.setNoArticle(rs.getInt("noArticle"));
-				uneEnchereEnCours.setNomArticle(rs.getString("nomArticle"));
+				uneEnchereEnCours.setNoArticle(rs.getInt("no_article"));
+				uneEnchereEnCours.setNomArticle(rs.getString("nom_article"));
 				uneEnchereEnCours.setDescription(rs.getString("description"));
-				uneEnchereEnCours.setDateDebutEncheres(rs.getDate("dateDebutEncheres"));
-				uneEnchereEnCours.setDateFinEncheres(rs.getDate("dateFinEncheres"));
-				uneEnchereEnCours.setMiseAPrix(rs.getDouble("miseAPrix"));
+				uneEnchereEnCours.setDateDebutEncheres(rs.getDate("date_debut_encheres"));
+				uneEnchereEnCours.setDateFinEncheres(rs.getDate("date_fin_encheres"));
+				uneEnchereEnCours.setMiseAPrix(rs.getDouble("prix_initial"));
 				uneEnchereEnCours.setEtatVente(rs.getString("etatVente"));
-				
+
 				Utilisateur unUtilisateur=new Utilisateur();
-				unUtilisateur.setNoUtilisateur(rs.getInt("noUtilisateur"));
+				unUtilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
 				unUtilisateur.setPseudo(rs.getString("pseudo"));
 				uneEnchereEnCours.setUtilisateur(unUtilisateur);
-				
+
 				Categorie uneCategorie=new Categorie();
-				uneCategorie.setNoCategorie(rs.getInt("noCategorie"));
+				uneCategorie.setNoCategorie(rs.getInt("no_categorie"));
 				uneCategorie.setLibelle(rs.getString("libelle"));
 				uneEnchereEnCours.setCategorie(uneCategorie);
-				
+
 				Enchere uneEnchere=new Enchere();
-				uneEnchere.setDateEnchere(rs.getDate("dateEnchere"));
+				uneEnchere.setDateEnchere(rs.getDate("date_enchere"));
 				uneEnchere.setMontant_enchere(rs.getDouble("montant_enchere"));
 				uneEnchereEnCours.setEnchere(uneEnchere);
 				
@@ -214,6 +213,57 @@ public List<ArticleVendu> selectAllCurentAuctions() throws BusinessException {
 			e.printStackTrace();
 		}
 		return listeDesEncheresEnCours;
+	}
+
+
+
+@Override
+public List<ArticleVendu> selectAllByCategories() throws BusinessException {
+	
+		List<ArticleVendu> listeArticles = new ArrayList<>();
+		try (Connection con = ConnectionProvider.getConnection()) {
+			PreparedStatement ps = con.prepareStatement(FIND_ARTICLE_BY_CATEGORIE);
+ 			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				ArticleVendu article =new ArticleVendu();
+				article.setNoArticle(rs.getInt("no_article"));
+				article.setNomArticle(rs.getString("nom_article"));
+				article.setDescription(rs.getString("description"));
+				article.setDateDebutEncheres(rs.getDate("date_debut_encheres"));
+				article.setDateFinEncheres(rs.getDate("date_fin_encheres"));
+				article.setMiseAPrix(rs.getDouble("prix_initial"));
+				article.setEtatVente(rs.getString("etatVente"));
+				article.setAcheteur(rs.getInt("no_acheteur"));
+
+				Utilisateur unUtilisateur=new Utilisateur();
+				unUtilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
+				unUtilisateur.setPseudo(rs.getString("pseudo"));
+				article.setUtilisateur(unUtilisateur);
+				
+
+				Categorie uneCategorie=new Categorie();
+				uneCategorie.setNoCategorie(rs.getInt("no_categorie"));
+				uneCategorie.setLibelle(rs.getString("libelle"));
+				article.setCategorie(uneCategorie);
+
+				Enchere uneEnchere=new Enchere();
+				uneEnchere.setDateEnchere(rs.getDate("date_enchere"));
+				uneEnchere.setMontant_enchere(rs.getDouble("montant_enchere"));
+				article.setEnchere(uneEnchere);
+				
+				Retrait retrait = new Retrait();
+				retrait.setRue(rs.getString("rue"));
+				retrait.setCode_postal(rs.getString("code_postal"));
+				retrait.setVille(rs.getString("ville"));
+				article.setRetrait(retrait);
+				
+				listeArticles.add(article);	
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return listeArticles;
 	}
 
 }

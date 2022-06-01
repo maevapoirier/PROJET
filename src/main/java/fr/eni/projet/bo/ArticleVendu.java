@@ -104,8 +104,8 @@ public class ArticleVendu {
 		return acheteur;
 	}
 
-	public void setAcheteur(Utilisateur acheteur) {
-		this.acheteur = acheteur;
+	public void setAcheteur(int i) {
+		this.acheteur = i;
 	}
 
 
