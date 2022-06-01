@@ -7,10 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.eni.projet.BusinessException;
+import fr.eni.projet.bo.Enchere;
 import fr.eni.projet.bo.ListeEncheres;
 
 public class ListeEncheresDAOJdbcImpl implements ListeEncheresDAO {
-	private static final String SELECT_CURRENT_AUCTIONS = "SELECT * from articles_vendus WHERE ? BETWEEN date_debut_encheres AND date_fin_encheres ORDER BY date_enchere ASC";
+	private static final String SELECT_CURRENT_AUCTIONS = "SELECT * from articles_vendus WHERE getDate() BETWEEN date_debut_encheres AND date_fin_encheres ORDER BY date_debut_encheres ASC";
 //	private static final String SELECT_ACTIVE = "SELECT * from articles_vendus WHERE date_fin_encheres <= ? ORDER BY date_enchere ASC";
 //	private static final String FIND_AUCTION_BY_ARTICLE_NAME = "SELECT * FROM articles_vendus WHERE nomArticle LIKE ?";
 //	private static final String FIND_AUCTION_BY_USER = "SELECT * FROM articles_vendus WHERE no_utilisateur=?";
@@ -19,8 +20,8 @@ public class ListeEncheresDAOJdbcImpl implements ListeEncheresDAO {
 	static PreparedStatement ps;
 	
 	@Override
-	public List<ListeEncheres> getEncheresEnCours() throws BusinessException {
-		List<ListeEncheres> listeDesEncheresEnCours = new ArrayList<ListeEncheres>();
+	public List<Enchere> getEncheresEnCours() throws BusinessException {
+		List<Enchere> listeDesEncheresEnCours = new ArrayList<Enchere>();
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement ps = con.prepareStatement(SELECT_CURRENT_AUCTIONS);
  			ResultSet rs = ps.executeQuery();

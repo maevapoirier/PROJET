@@ -10,20 +10,19 @@ public class ArticleVendu {
 	private Date dateFinEncheres;
 	private double miseAPrix; //prix de d�part du produit
 	private double prixVente; //prix final de vente du produit
-	private boolean etatVente; //vente en cours=1, sinon=0
+	private String etatVente; //vente en cours=1, sinon=0
 	
 	private Utilisateur utilisateur;
+	private Utilisateur acheteur;
 	private Retrait retrait;
 	private Categorie categorie;
 	private Enchere enchere;
-	public int getNoArticle() {
-		return noArticle;
-	}
+	
 	
 	
 	//constructeurs
 	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, double miseAPrix, double prixVente, boolean etatVente) {
+			Date dateFinEncheres, double miseAPrix, double prixVente, String etatVente) {
 		super();
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
@@ -34,6 +33,18 @@ public class ArticleVendu {
 		this.prixVente = prixVente;
 		this.etatVente = etatVente;
 	}
+	
+	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, double miseAPrix, String etatVente) {
+		super();
+		this.noArticle = noArticle;
+		this.nomArticle = nomArticle;
+		this.description = description;
+		this.dateDebutEncheres = dateDebutEncheres;
+		this.dateFinEncheres = dateFinEncheres;
+		this.miseAPrix = miseAPrix;
+		this.etatVente = etatVente;
+	}
 
 	public ArticleVendu() {
 		super();
@@ -41,9 +52,63 @@ public class ArticleVendu {
 
 
 	//getter et setter
+	
+	public int getNoArticle() {
+		return noArticle;
+	}
+	
 	public void setNoArticle(int noArticle) {
 		this.noArticle = noArticle;
 	}
+	public Retrait getRetrait() {
+		return retrait;
+	}
+
+
+	public void setRetrait(Retrait retrait) {
+		this.retrait = retrait;
+	}
+
+
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+
+
+	public Enchere getEnchere() {
+		return enchere;
+	}
+
+
+	public void setEnchere(Enchere enchere) {
+		this.enchere = enchere;
+	}
+
+
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+
+
+	public Utilisateur getAcheteur() {
+		return acheteur;
+	}
+
+	public void setAcheteur(Utilisateur acheteur) {
+		this.acheteur = acheteur;
+	}
+
+
 	public String getNomArticle() {
 		return nomArticle;
 	}
@@ -80,10 +145,10 @@ public class ArticleVendu {
 	public void setPrixVente(double prixVente) {
 		this.prixVente = prixVente;
 	}
-	public boolean isEtatVente() {
+	public String getEtatVente() {
 		return etatVente;
 	}
-	public void setEtatVente(boolean etatVente) {
+	public void setEtatVente(String etatVente) {
 		this.etatVente = etatVente;
 	}
 

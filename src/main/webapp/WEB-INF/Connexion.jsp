@@ -65,6 +65,7 @@
 				Se souvenir de moi ? <input type="checkbox" name="souvenir" value="checked" /><br />
 				
 				 <input type="submit" value="Connexion" class="sansLabel" /> <br />
+				 
 
 			
 		</fieldset>
