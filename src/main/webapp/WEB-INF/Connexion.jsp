@@ -40,7 +40,19 @@
 	<form method="post" action="<%=request.getContextPath()%>/Connexion">
 		<fieldset>
 			<legend>Connexion</legend>
-			<p>Vous pouvez vous connecter via ce formulaire.</p>
+			<p>
+<% if((String)request.getAttribute("message")!=null)
+{
+	%> <p><%=request.getAttribute("message") %></p><%
+}
+
+
+
+
+%>
+
+
+			</p>
 
 			<label for="nom">Adresse email <span class="requis">*</span></label>
 			<input type="email" id="email" name="email"
@@ -53,6 +65,7 @@
 				Se souvenir de moi ? <input type="checkbox" name="souvenir" value="checked" /><br />
 				
 				 <input type="submit" value="Connexion" class="sansLabel" /> <br />
+				 
 
 			
 		</fieldset>

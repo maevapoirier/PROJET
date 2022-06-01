@@ -5,13 +5,13 @@ import java.util.Date;
 public class Enchere {
 	//attributs
 	private Date dateEnchere;
-	private int montant_enchere;
+	private Double montant_enchere;
 	
 	private int utilisateur;
 	private int articleVendu;
 
 	//constructeur
-	public Enchere(Date dateEnchere, int montant_enchere, int utilisateur, int articleVendu) {
+	public Enchere(Date dateEnchere, Double montant_enchere, int utilisateur, int articleVendu) {
 		super();
 		this.dateEnchere = dateEnchere;
 		this.montant_enchere = montant_enchere;
@@ -32,11 +32,11 @@ public class Enchere {
 		this.dateEnchere = dateEnchere;
 	}
 
-	public int getMontant_enchere() {
+	public Double getMontant_enchere() {
 		return montant_enchere;
 	}
 
-	public void setMontant_enchere(int montant_enchere) {
+	public void setMontant_enchere(Double montant_enchere) {
 		this.montant_enchere = montant_enchere;
 	}
 

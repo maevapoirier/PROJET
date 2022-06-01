@@ -3,6 +3,7 @@ package fr.eni.projet.bll;
 import fr.eni.projet.BusinessException;
 import fr.eni.projet.bo.Utilisateur;
 import fr.eni.projet.dal.UtilisateurDAO;
+import fr.eni.projet.servlet.CodesResultatServlets;
 
 public class UtilisateurManager {
 	
@@ -28,14 +29,58 @@ public class UtilisateurManager {
 			
 		}
 
-		public Utilisateur ajouterUtilisateur(String pseudo,String nom,String prenom,String email,String telephone,String rue,int codePostal,String ville,String motDePasse) throws BusinessException 
+		public Utilisateur ajouterUtilisateur(String pseudo,String nom,String prenom,String email,String telephone,String rue,String codePostal,String ville,String mdp, String mdp2) throws BusinessException 
 		{
+			
+			
 			System.out.println(pseudo);
 			BusinessException businessException = new BusinessException();
 			
 			// validation des données email dispo et pseudo dispo 
-			//this.validerEmail(email, businessException);
-			//this.validerPseudo(pseudo, businessException);
+			this.validerEmail(email, businessException);
+			this.validerPseudo(pseudo, businessException);
+			
+			if(nom.isEmpty())
+			{
+				businessException.ajouterErreur(CodesResultatBLL.NOM_PAS_RENSEIGNE);
+			}
+			if(prenom.isEmpty())
+			{
+				businessException.ajouterErreur(CodesResultatBLL.PRENOM_PAS_RENSEIGNE);
+			}
+			if(pseudo.isEmpty())
+			{
+				businessException.ajouterErreur(CodesResultatBLL.PSEUDO_PAS_RENSEIGNE);
+			}
+			if(email.isEmpty())
+			{
+				businessException.ajouterErreur(CodesResultatBLL.EMAIL_PAS_RENSEIGNE);
+			}
+			if(rue.isEmpty())
+			{
+				businessException.ajouterErreur(CodesResultatBLL.RUE_PAS_RENSEIGNEE);
+			}
+			if(codePostal.isEmpty())
+			{
+				businessException.ajouterErreur(CodesResultatBLL.CP_PAS_RENSEIGNE);
+			}
+			if(ville.isEmpty())
+			{
+				businessException.ajouterErreur(CodesResultatBLL.VILLE_PAS_RENSEIGNEE);
+			}
+			if(mdp.isEmpty())
+			{
+				businessException.ajouterErreur(CodesResultatBLL.MDP_PAS_RENSEIGNE);
+			}
+			if(mdp2.isEmpty())
+			{
+				businessException.ajouterErreur(CodesResultatBLL.MDP2_PAS_RENSEIGNE);
+			}
+			if(!mdp.equals(mdp2))
+			{
+				System.out.println("les mots de passe sont différents");
+				businessException.ajouterErreur(CodesResultatBLL.MDP_DIFFERENTS);
+			}
 			
 			
 			Utilisateur utilisateur = null;
@@ -53,7 +98,7 @@ public class UtilisateurManager {
 				utilisateur.setRue(rue);
 				utilisateur.setCodePostal(codePostal);
 				utilisateur.setVille(ville);
-				utilisateur.setMotDePasse(motDePasse);
+				utilisateur.setMotDePasse(mdp);
 				utilisateur.setCredit(credit);
 				utilisateur.setAdministrateur(administrateur);
 			
