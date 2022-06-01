@@ -24,7 +24,7 @@ public interface ArticleVenduDAO {
 	
 	public List<ArticleVendu> selectAllCurentAuctions() throws BusinessException;
 
-	public List<ArticleVendu> selectAllByCategories() throws BusinessException;
+	public List<ArticleVendu> selectAllByCategorie(String categorie) throws BusinessException;
 	
 
 }

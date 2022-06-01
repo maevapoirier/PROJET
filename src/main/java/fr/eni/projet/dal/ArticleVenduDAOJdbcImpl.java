@@ -218,11 +218,12 @@ public List<ArticleVendu> selectAllCurentAuctions() throws BusinessException {
 
 
 @Override
-public List<ArticleVendu> selectAllByCategories() throws BusinessException {
+public List<ArticleVendu> selectAllByCategorie(String categorie) throws BusinessException {
 	
 		List<ArticleVendu> listeArticles = new ArrayList<>();
 		try (Connection con = ConnectionProvider.getConnection()) {
 			PreparedStatement ps = con.prepareStatement(FIND_ARTICLE_BY_CATEGORIE);
+			ps.setString(1, categorie);
  			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				ArticleVendu article =new ArticleVendu();
