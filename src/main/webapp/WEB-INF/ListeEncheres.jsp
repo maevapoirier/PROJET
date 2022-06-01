@@ -10,37 +10,70 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
+      integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
+      crossorigin="anonymous"
+    />
+<link rel="stylesheet" href="style.css" />
 <title>Les objets sont nos amis - les enchères</title>
 </head>
 
-<body>
- <h1>Liste des enchères</h1>	
- <div class="container">
+<body style="background-image: url(background3.png)">
+
 <!-- ENTETE LOGO -->
-	<div>
-	<% %>
-	</div>
+    <header>
+      <img id="logo" src="thumbnail_logo.png" alt="Logo du site d'enchères" />
+
+      <section>
+        <h1 class="header__maintitle">Enchères de l'ENI</h1>
+        <p class="header__subtitle">De bonnes affaires à petit prix</p>
+      </section>
+    </header>
+
 <!-- MENU DE LIENS EN HAUT DROITE -->
- 	<div>
+     <main>
+      <nav class="menu__bar">
+
+       <h1>Liste des enchères</h1>
+       <ul>
 		<% if (request.getSession() != null) { %>
-      		<p><a href="<%=request.getContextPath()%>/ServletListeEncheres">Enchères</a>  |  <a href="#">Vendre un objet</a>  |  <a href="#">Mon profil</a>  |  <a href="<%=request.getContextPath()%>/ServletConnexionDeconnexion">Déconnexion</a></p>
+          <li><a class="nav__links" href="<%=request.getContextPath()%>/ServletListeEncheres">Enchères</a></li>
+          <li><a class="nav__links" href="#">Vendre un Objet</a></li>
+          <li><a class="nav__links" href="#">Mon Profil</a></li>
+          <li><a class="nav__links" href="<%=request.getContextPath()%>/ServletConnexionDeconnexion">Déconnexion</a></li>
 		<% } else {%>
-      		<p><a href="<%=request.getContextPath()%>/ServletCreationCompte">S'inscrire - Se connecter</a></p>
+          <li><a href="<%=request.getContextPath()%>/ServletCreationCompte">S'inscrire - Se connecter</a></li>
 		<% } %>
-    </div>
+	   </ul>
+      </nav>
+
+
 <!-- FILTRES DE RECHERCHES SUR LES CATEGORIE, NOM, ACHAT-VENTE... -->
-	<div>
+	<div>Choisir une catégorie : 
 	<% %>
 	</div>
+	
 <!-- LISTE DES BLOCS D'ENCHERES -->    
 	<div>
-	<% 	List<ArticleVendu> maListe = (List<ArticleVendu>)request.getAttribute("maListe");%>	
-	<c:forEach var="Article" items="${maListe}">
-		<h1>${Article.nomArticle}</h1>
-		<p>${Article.description}</p>
-	</c:forEach>
-	</div>
+	<% 	List<ArticleVendu> maListe = (List<ArticleVendu>)request.getAttribute("maListe");
+		if(maListe!=null && maListe.size()>0){
+			for(ArticleVendu liste : maListe){
+	%>
+				<div>
+					<h1><%=liste.getNomArticle() %></h1>
+					<p><%=liste.getDescription() %></p>
+				</div>
+	<%		}
+		}else{
+	%>
+			<p>Il n'y a aucune enchère en cours<P>
+	<%
+		}
+	%>
+	
+	</main>
    
-</div>
 </body>
 </html>
