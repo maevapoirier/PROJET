@@ -35,17 +35,9 @@
 <!-- LISTE DES BLOCS D'ENCHERES -->    
 	<div>
 	<% 	List<ArticleVendu> maListe = (List<ArticleVendu>)request.getAttribute("maListe");%>	
-	<c:forEach var="Article" items="$(maListe)">
-		
-	
-
-	
-
-		<div class="bloc article en cours d'enchère">
+	<c:forEach var="Article" items="${maListe}">
 		<h1>${Article.nomArticle}</h1>
-		<p>description</p>
-		</div>
-	
+		<p>${Article.description}</p>
 	</c:forEach>
 	</div>
    

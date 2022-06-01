@@ -1,6 +1,7 @@
 package fr.eni.projet.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -14,6 +15,7 @@ import fr.eni.projet.BusinessException;
 import fr.eni.projet.bll.DAOFactory;
 import fr.eni.projet.bo.ArticleVendu;
 import fr.eni.projet.dal.ArticleVenduDAO;
+import fr.eni.projet.dal.ArticleVenduDAOJdbcImpl;
 
 /**
  * Servlet implementation class ServletListeEncheres
@@ -31,18 +33,13 @@ public class ServletListeEncheres extends HttpServlet {
 /*		if(utilisateur.connecterUtilisateur()!=null) {
 			HttpSession session = request.getSession(true); 
 			session.invalidate();
-		}
-		try {
-			articleVenduDAO.getArticlesVendus();
-		} catch (BusinessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}*/
 		
 		ArticleVenduDAO articleVenduDAO = DAOFactory.getArticleVenduDAO();
 		
 		try {
-			List<ArticleVendu> liste = (List<ArticleVendu>) articleVenduDAO.selectAllCurentAuctions();
+			List<ArticleVendu> liste = new ArrayList<ArticleVendu>();
+			liste = (List<ArticleVendu>) articleVenduDAO.selectAllCurentAuctions();
 			System.out.println(liste);
 			request.setAttribute("maListe", liste);
 		} catch (BusinessException e) {
