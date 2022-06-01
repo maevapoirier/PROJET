@@ -13,7 +13,7 @@ public class ArticleVendu {
 	private String etatVente; //vente en cours=1, sinon=0
 	
 	private Utilisateur utilisateur;
-	private Utilisateur acheteur;
+	private int acheteur;
 	private Retrait retrait;
 	private Categorie categorie;
 	private Enchere enchere;
@@ -100,12 +100,12 @@ public class ArticleVendu {
 	}
 
 
-	public Utilisateur getAcheteur() {
+	public int getAcheteur() {
 		return acheteur;
 	}
 
-	public void setAcheteur(Utilisateur acheteur) {
-		this.acheteur = acheteur;
+	public void setAcheteur(int i) {
+		this.acheteur = i;
 	}
 
 

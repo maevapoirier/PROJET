@@ -23,6 +23,8 @@ public interface ArticleVenduDAO {
 	public List<ArticleVendu> findArticleByBuyer(int no_utilisateur) throws BusinessException;
 	
 	public List<ArticleVendu> selectAllCurentAuctions() throws BusinessException;
+
+	public List<ArticleVendu> selectAllByCategorie(String categorie) throws BusinessException;
 	
 
 }
