@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.eni.projet.bll.UtilisateurManager;
+import fr.eni.projet.BusinessException;
+import fr.eni.projet.dal.ArticleVenduDAO;
+import fr.eni.projet.dal.ArticleVenduDAOJdbcImpl;
 
 /**
  * Servlet implementation class ServletListeEncheres
@@ -17,15 +19,37 @@ import fr.eni.projet.bll.UtilisateurManager;
 @WebServlet("/ServletListeEncheres")
 public class ServletListeEncheres extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private ArticleVenduDAO articleVenduDAO;
        
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		UtilisateurManager utilisateurManager = new UtilisateurManager();
-		HttpServletRequest httpRequest = (HttpServletRequest) request;
-		httpRequest.getSession().setAttribute("utilisateur", utilisateurManager);
+//	LE TEST DOIT ETRE FAIT SUR L'UTILISATEUR POUR SAVOIR SI CONNECTION OU PAS
+/*		if(utilisateur.connecterUtilisateur()!=null) {
+			HttpSession session = request.getSession(true); 
+			session.invalidate();
+		}
+		try {
+			articleVenduDAO.getArticlesVendus();
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
 		
+		articleVenduDAO = new ArticleVenduDAOJdbcImpl();
+		try {
+			System.out.println(articleVenduDAO.selectAllCurrentAuctions());
+		} catch (BusinessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			request.setAttribute("maListe", articleVenduDAO.selectAllCurrentAuctions());
+		} catch (BusinessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/ListeEncheres.jsp");
 		rd.forward(request, response);
 	}

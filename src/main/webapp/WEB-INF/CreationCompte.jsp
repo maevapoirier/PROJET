@@ -53,9 +53,6 @@
                 <label for="ville">Ville</label>
                 <input type="text" id="ville" name="ville" value="" size="20" maxlength="20" />
                 <br />
-                
-
-                
 
                 <input type="submit" value="Inscription" class="sansLabel" />
                 <br />
