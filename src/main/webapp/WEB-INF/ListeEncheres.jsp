@@ -2,7 +2,7 @@
 	contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
-<%@ page import="fr.eni.projet.dal.ArticleVenduDAOJdbcImpl"%>
+<%@ page import="fr.eni.projet.dal.ArticleVenduDAOJdbcImplOLD"%>
 <%@ page import="fr.eni.projet.bo.ArticleVendu"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -35,11 +35,9 @@
 <!-- LISTE DES BLOCS D'ENCHERES -->    
 	<div>
 	<% 	List<ArticleVendu> maListe = (List<ArticleVendu>)request.getAttribute("maListe");%>	
-	<%	
-		String nomArticle = maListe.nomArticle;
-		%>
-		<div class="bloc article en enchère">
-		<h1><%=maListe.getNomArticle %></h1>
+
+		<div class="bloc article en cours d'enchère">
+		<h1><%=... %></h1>
 		</div>
 	<%  %>
 				ArticleVendu unArticleVendu=new ArticleVendu();

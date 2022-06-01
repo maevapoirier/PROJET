@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.eni.projet.BusinessException;
-import fr.eni.projet.dal.ArticleVenduDAO;
-import fr.eni.projet.dal.ArticleVenduDAOJdbcImpl;
+import fr.eni.projet.dal.ArticleVenduDAOOLD;
+import fr.eni.projet.dal.ArticleVenduDAOJdbcImplOLD;
 
 /**
  * Servlet implementation class ServletListeEncheres
@@ -19,7 +19,7 @@ import fr.eni.projet.dal.ArticleVenduDAOJdbcImpl;
 @WebServlet("/ServletListeEncheres")
 public class ServletListeEncheres extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private ArticleVenduDAO articleVenduDAO;
+	private ArticleVenduDAOOLD articleVenduDAO;
        
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -37,7 +37,7 @@ public class ServletListeEncheres extends HttpServlet {
 			e.printStackTrace();
 		}*/
 		
-		articleVenduDAO = new ArticleVenduDAOJdbcImpl();
+		articleVenduDAO = new ArticleVenduDAOJdbcImplOLD();
 		try {
 			System.out.println(articleVenduDAO.selectAllCurrentAuctions());
 		} catch (BusinessException e1) {
