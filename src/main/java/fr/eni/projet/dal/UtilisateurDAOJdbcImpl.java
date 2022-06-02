@@ -217,7 +217,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			ps.setString(4, u.getEmail());
 			ps.setString(5, u.getTelephone());
 			ps.setString(6, u.getRue());
-			ps.setString(7, u.getCodePostal() + "");
+			ps.setString(7, u.getCodePostal());
 			ps.setString(8, u.getVille());
 			ps.setString(9, u.getMotDePasse());
 			ps.setInt(10, u.getCredit());
