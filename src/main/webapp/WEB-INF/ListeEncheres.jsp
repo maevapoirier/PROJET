@@ -16,7 +16,7 @@
       integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ"
       crossorigin="anonymous"
     />
-<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="resources/css/style.css" />
 <title>Les objets sont nos amis - les enchères</title>
 </head>
 
@@ -24,7 +24,7 @@
 
 <!-- ENTETE LOGO -->
     <header>
-      <img id="logo" src="thumbnail_logo.png" alt="Logo du site d'enchères" />
+      <img id="logo" src="resources/img/thumbnail_logo.png" alt="Logo du site d'enchères" />
 
       <section>
         <h1 class="header__maintitle">Enchères de l'ENI</h1>
@@ -38,6 +38,7 @@
 
        <h1>Liste des enchères</h1>
        <ul>
+
 		<% if (request.getSession() != null) { %>
           <li><a class="nav__links" href="<%=request.getContextPath()%>/ServletListeEncheres">Enchères</a></li>
           <li><a class="nav__links" href="#">Vendre un Objet</a></li>
@@ -56,22 +57,18 @@
 	</div>
 	
 <!-- LISTE DES BLOCS D'ENCHERES -->    
-	<div>
-	<% 	List<ArticleVendu> maListe = (List<ArticleVendu>)request.getAttribute("maListe");
-		if(maListe!=null && maListe.size()>0){
-			for(ArticleVendu liste : maListe){
-	%>
-				<div>
-					<h1><%=liste.getNomArticle() %></h1>
-					<p><%=liste.getDescription() %></p>
-				</div>
-	<%		}
-		}else{
-	%>
-			<p>Il n'y a aucune enchère en cours<P>
-	<%
-		}
-	%>
+
+	<% 	List<ArticleVendu> maListe = (List<ArticleVendu>)request.getAttribute("maListe");%>
+ 	        <c:forEach var="article" items="${maListe}">
+	       	<div style="margin:20px;padding:20px;background-color:#dddddd">
+	       		<div style="float:left;margin:10px"><img id="img" src="resources/img/${article.image }" alt="img de l'article" height=150 /></div>
+	       		<h1><c:out value="${article.nomArticle}"></c:out></h1>
+	       		<p>Prix : <c:out value="${article.miseAPrix}"></c:out></p>
+	       		<p>Date de fin d'enchère : <c:out value="${article.dateFinEncheres}"></c:out></p>
+	       		<p>Vendeur : <c:out value="${article.utilisateur.pseudo}"></c:out></p>
+	       	</div>
+	       </c:forEach> 
+
 	
 	</main>
    
