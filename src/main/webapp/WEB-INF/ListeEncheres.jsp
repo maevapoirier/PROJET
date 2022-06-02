@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="fr.eni.projet.dal.ArticleVenduDAOJdbcImpl"%>
-<%@ page import="fr.eni.projet.bo.ArticleVenduOLD21203"%>
+<%@ page import="fr.eni.projet.bo.ArticleVendu"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!-- <!DOCTYPE html> -->

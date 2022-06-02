@@ -115,16 +115,14 @@ public class UtilisateurManager {
 			
 		}
 		
-		public Utilisateur modifierUtilisateur(String pseudo,String nom,String prenom,String email,String telephone,String rue,String codePostal,String ville,String mdp, String mdp2) throws BusinessException 
+		public Utilisateur modifierUtilisateur(String pseudo,String nom,String prenom,String email,String telephone,String rue,String codePostal,String ville,String mdp, int no_utilisateur) throws BusinessException 
 		{
 			
 			
 			System.out.println(pseudo);
 			BusinessException businessException = new BusinessException();
 			
-			// validation des données email dispo et pseudo dispo 
-			this.validerEmail(email, businessException);
-			this.validerPseudo(pseudo, businessException);
+			
 			
 			if(nom.isEmpty())
 			{
@@ -134,14 +132,7 @@ public class UtilisateurManager {
 			{
 				businessException.ajouterErreur(CodesResultatBLL.PRENOM_PAS_RENSEIGNE);
 			}
-			if(pseudo.isEmpty())
-			{
-				businessException.ajouterErreur(CodesResultatBLL.PSEUDO_PAS_RENSEIGNE);
-			}
-			if(email.isEmpty())
-			{
-				businessException.ajouterErreur(CodesResultatBLL.EMAIL_PAS_RENSEIGNE);
-			}
+		
 			if(rue.isEmpty())
 			{
 				businessException.ajouterErreur(CodesResultatBLL.RUE_PAS_RENSEIGNEE);
@@ -154,19 +145,7 @@ public class UtilisateurManager {
 			{
 				businessException.ajouterErreur(CodesResultatBLL.VILLE_PAS_RENSEIGNEE);
 			}
-			if(mdp.isEmpty())
-			{
-				businessException.ajouterErreur(CodesResultatBLL.MDP_PAS_RENSEIGNE);
-			}
-			if(mdp2.isEmpty())
-			{
-				businessException.ajouterErreur(CodesResultatBLL.MDP2_PAS_RENSEIGNE);
-			}
-			if(!mdp.equals(mdp2))
-			{
-				System.out.println("les mots de passe sont différents");
-				businessException.ajouterErreur(CodesResultatBLL.MDP_DIFFERENTS);
-			}
+		
 			
 			
 			Utilisateur utilisateur = null;
@@ -189,7 +168,7 @@ public class UtilisateurManager {
 				utilisateur.setAdministrateur(administrateur);
 			
 				System.out.println(utilisateur);
-				this.utilisateurDAO.insert(utilisateur);
+				this.utilisateurDAO.update(utilisateur);
 			}
 			else
 			{	

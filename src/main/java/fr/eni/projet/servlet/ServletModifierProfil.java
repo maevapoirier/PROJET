@@ -34,6 +34,10 @@ public class ServletModifierProfil extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		
+		Utilisateur user = (Utilisateur) request.getSession().getAttribute("session");
+		int no_utilisateur = user.getNoUtilisateur();
 		String pseudo = request.getParameter("pseudo");
 		String nom = request.getParameter("nom");
 		String prenom = request.getParameter("prenom");
@@ -43,32 +47,33 @@ public class ServletModifierProfil extends HttpServlet {
 		String cp = request.getParameter("cp");
 		String ville = request.getParameter("ville");
 		String mdp = request.getParameter("motdepasse");
-		String mdp2 = request.getParameter("confirmation");
+	
 		
 		BusinessException listeCodesErreur=new BusinessException();
 		
 			
 			
 			
-					//Je créé un nouvel utilisateur 
+					
 					UtilisateurManager utilisateurManager = new UtilisateurManager();
 					try {
-						utilisateurManager.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp, mdp2);
+						
+						user = utilisateurManager.modifierUtilisateur(pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp, no_utilisateur);
 						//Si tout se passe bien, je vais vers la page de consultation:
 						HttpServletRequest httpRequest = (HttpServletRequest) request;
-						Utilisateur user = utilisateurManager.connecterUtilisateur(email, mdp);
 						httpRequest.getSession().setAttribute("session", user);
-						
-						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ListeEncheres.jsp");
+						String message = "L'utilisateur a bien été modifié.";
+						httpRequest.setAttribute("message", message);
+						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifierProfil.jsp");
 						rd.forward(request, response);
 					} catch (BusinessException e) {
 						//Sinon je retourne à la page d'ajout pour indiquer les problèmes
 						
 						e.printStackTrace();
 						request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
-						Utilisateur user = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, cp, ville);
+						user = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, cp, ville);
 						request.setAttribute("utilisateur", user);
-						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/CreationCompte.jsp");
+						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifierProfil.jsp");
 						rd.forward(request, response);
 					}
 					
