@@ -43,9 +43,10 @@
           <li><a class="nav__links" href="<%=request.getContextPath()%>/ServletListeEncheres">Enchères</a></li>
           <li><a class="nav__links" href="<%=request.getContextPath()%>/ServletNewArticle">Vendre un Objet</a></li>
           <li><a class="nav__links" href="<%=request.getContextPath()%>/ServletAfficherProfil">Mon Profil</a></li>
-          <li><a class="nav__links" href="<%=request.getContextPath()%>/ServletConnexionDeconnexion">Déconnexion</a></li>
-		<% 	// }else{ 	%>
-          <li><a href="<%=request.getContextPath()%>/ServletCreationCompte">S'inscrire - Se connecter</a></li>
+          <li><a class="nav__links" href="<%=request.getContextPath()%>/ServletDeconnexion">Déconnexion</a></li>
+		<% //	 }else{ 	%>
+          <li><a href="<%=request.getContextPath()%>/ServletCreerUnCompte">S'inscrire</a></li>
+          <li><a href="<%=request.getContextPath()%>/ServletSeConnecter">Se connecter</a></li>
 		<% //	 } 	%>
 	   </ul>
       </nav>
