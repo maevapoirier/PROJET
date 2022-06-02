@@ -56,7 +56,8 @@ crossorigin="anonymous"
 <h1>Liste des enchères</h1>
 <ul>
 <%
-if (session.getAttribute("utilisateur")!=null){ %>
+if (session.getAttribute("session")!=null){
+	%>
 <li><a class="nav__links" href="<%=request.getContextPath()%>/ServletListeEncheres">Enchères</a></li>
 <li><a class="nav__links" href="<%=request.getContextPath()%>/ServletNewArticle">Vendre un Objet</a></li>
 <li><a class="nav__links" href="<%=request.getContextPath()%>/ServletAfficherProfil">Mon Profil</a></li>

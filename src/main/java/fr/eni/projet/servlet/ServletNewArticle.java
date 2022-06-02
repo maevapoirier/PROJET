@@ -46,7 +46,7 @@ public class ServletNewArticle extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ArticleVendu article = new ArticleVendu();
 		request.setAttribute("enregistre", null);
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/NewArticle.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/log/NewArticle.jsp");
 		rd.forward(request, response);
 	}
 
@@ -106,7 +106,7 @@ public class ServletNewArticle extends HttpServlet {
 		//newArticleManager.ajouterArticle(nomArticle, description, categorie, miseAPrix,dateDebut,dateFin);
 		//Si tout se passe bien, je vais vers la page de consultation:
 		request.setAttribute("enregistre",nomArticle);
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/NewArticle.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/log/NewArticle.jsp");
 		rd.forward(request, response);
 	}
 

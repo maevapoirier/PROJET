@@ -1,4 +1,6 @@
 <%@page import="fr.eni.projet.bo.Utilisateur"%>
+<%@page import="fr.eni.projet.messages.LecteurMessage"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 		 
@@ -13,7 +15,7 @@
 
 
  	    <%
-	Utilisateur user = (Utilisateur)request.getAttribute("utilisateur");
+	
 
 			List<Integer> listeCodesErreur = (List<Integer>)request.getAttribute("listeCodesErreur");
 			if(listeCodesErreur!=null)
@@ -49,12 +51,11 @@
                 <input type="hidden" id="pseudo" name="pseudo" value="<%=user.getPseudo() %>" size="20" maxlength="20" />
                 <br />
 
-                <label for="email">Adresse email <span class="requis">*</span></label>
+                <label for="email">Adresse email : <span class="requis"></span></label> <%=user.getEmail() %>
                 <input type="hidden" id="email" name="email" value="<%=user.getEmail() %>" size="20" maxlength="60" />
                 <br />
                 
 
-                <label for="motdepasse">Mot de passe <span class="requis">*</span></label>
                 <input type="hidden" id="motdepasse" name="motdepasse" value="<%=user.getMotDePasse() %>" size="20" maxlength="20" />
                 <br />
 
