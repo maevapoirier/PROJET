@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.eni.projet.BusinessException;
 import fr.eni.projet.bll.DAOFactory;
 import fr.eni.projet.bo.ArticleVendu;
+import fr.eni.projet.bo.Utilisateur;
 import fr.eni.projet.dal.ArticleVenduDAO;
 import fr.eni.projet.dal.ArticleVenduDAOJdbcImpl;
 
@@ -30,17 +31,29 @@ public class ServletListeEncheres extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 //	LE TEST DOIT ETRE FAIT SUR L'UTILISATEUR POUR SAVOIR SI CONNECTION OU PAS
-/*		if(utilisateur.connecterUtilisateur()!=null) {
-			HttpSession session = request.getSession(true); 
-			session.invalidate();
-		}*/
+
+		int userNb;
+		String pseudo;
+		Utilisateur user;
+		
+		if(request.getSession(false)!=null) {
+			user = (Utilisateur)request.getSession().getAttribute("session");
+//			userNb = user.getNoUtilisateur();
+//			pseudo = user.getPseudo();
+			userNb = 1;
+			pseudo = "gagasch";
+		}else {
+			userNb = -1;
+			pseudo = null;
+		}
 		
 		ArticleVenduDAO articleVenduDAO = DAOFactory.getArticleVenduDAO();
 		
 		try {
 			List<ArticleVendu> liste = new ArrayList<ArticleVendu>();
 			liste = (List<ArticleVendu>) articleVenduDAO.selectAllCurentAuctions();
-			System.out.println(liste);
+			request.setAttribute("monNoUtilisateur", userNb);
+			request.setAttribute("monPseudo", pseudo);
 			request.setAttribute("maListe", liste);
 		} catch (BusinessException e) {
 			// TODO Auto-generated catch block
