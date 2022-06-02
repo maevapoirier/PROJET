@@ -57,7 +57,6 @@ public class ServletNewArticle extends HttpServlet {
 		
 		Utilisateur user = (Utilisateur)request.getSession().getAttribute("session");
 		int no_utilisateur = user.getNoUtilisateur();
-		System.out.println(no_utilisateur);
 		
 		String nomArticle = request.getParameter("nomArticle");
 		String description = request.getParameter("description");
