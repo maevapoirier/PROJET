@@ -3,7 +3,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="fr.eni.projet.dal.ArticleVenduDAOJdbcImpl"%>
-<%@ page import="fr.eni.projet.bo.ArticleVendu"%>
+<%@ page import="fr.eni.projet.bo.ArticleVenduOLD21203"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!-- <!DOCTYPE html> -->
@@ -39,26 +39,39 @@
        <h1>Liste des enchères</h1>
        <ul>
 
-		<% if (request.getSession() != null) { %>
-          <li><a class="nav__links" href="<%=request.getContextPath()%>/ServletListeEncheres">Enchères</a></li>
+		<%
+		p
+		 if (request.getSession() != null)
+		%>
+          <li><a class="nav__links" href="<%=t(request.getContextPath%>/ServletListeEncheres">Enchères</a></li>
           <li><a class="nav__links" href="#">Vendre un Objet</a></li>
-          <li><a class="nav__links" href="#">Mon Profil</a></li>
-          <li><a class="nav__links" href="<%=request.getContextPath()%>/ServletConnexionDeconnexion">Déconnexion</a></li>
-		<% } else {%>
-          <li><a href="<%=request.getContextPath()%>/ServletCreationCompte">S'inscrire - Se connecter</a></li>
-		<% } %>
+          <li><a class="nav__links" href="<%=t(request.getContextPath%>/ServletAfficherProfil">Mon Profil</a></li>
+          <li><a class="nav__links" href="<%=t(request.getContextPath%>/ServletConnexionDeconnexion">Déconnexion</a></li>
+		<%
+		p
+		 } else
+		%>
+          <li><a href="<%=t(request.getContextPath%>/ServletCreationCompte">S'inscrire - Se connecter</a></li>
+		<%
+		p
+		%>
 	   </ul>
       </nav>
 
 
 <!-- FILTRES DE RECHERCHES SUR LES CATEGORIE, NOM, ACHAT-VENTE... -->
 	<div>Choisir une catégorie : 
-	<% %>
+	<%
+	p
+	%>
 	</div>
 	
 <!-- LISTE DES BLOCS D'ENCHERES -->    
 
-	<% 	List<ArticleVendu> maListe = (List<ArticleVendu>)request.getAttribute("maListe");%>
+	<%
+    	p
+    	 	List<ArticleVenduOLD21203> maListe = (List<ArticleVenduOLD21203>)request.getAttribute("maListe"
+    	%>
  	        <c:forEach var="article" items="${maListe}">
 	       	<div style="margin:20px;padding:20px;background-color:#dddddd">
 	       		<div style="float:left;margin:10px"><img id="img" src="resources/img/${article.image }" alt="img de l'article" height=150 /></div>
