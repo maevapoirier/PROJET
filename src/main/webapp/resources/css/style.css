@@ -1,0 +1,430 @@
+/*====== Google Fonts  ======*/
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;1,200;1,300;1,400;1,600;1,700&display=swap');
+
+
+:root{
+/*====== Couleurs ======*/
+
+--first-color: #193250;
+--first-color-light: rgb(178, 188, 253);
+--second-color: rgb(255, 196, 0);
+--second-color-light: #FEDE76;
+--third-color: #CF3939;
+--text-color: #fff;
+--text-color-2: #af00af;
+--text-color-3: #580758;
+--text-color-4: #ffaf2d;
+
+/*====== Font size ======*/
+--h1-font-size: 3rem;
+--h2-font-size: 2rem;
+--sub-font-size: 1.5rem;
+--h3-font-size: 1.25rem;
+--normal-font-size: 1rem;
+--small-font-size: 0.812rem;
+--smaller-font-size: 0.75rem;
+
+/*====== Font Weight ======*/
+--font-regular: 400;
+--font-semi-bold: 600;
+--font-bold: 700;
+
+/*====== Margins ======*/
+--mar-1: 6rem;
+--mar-2: 3rem;
+--mar-3: 2rem;
+--mar-4: 1rem;
+--mar-5: 0.5rem;
+--mar-6: 0.2rem;
+
+/*====== Paddings ======*/
+--pad-1: 15rem;
+--pad-2: 10rem;
+--pad-3: 5rem;
+--pad-4: 2rem;
+--pad-5: 1rem;
+--pad-6: 0.5rem;
+--pad-7: 0.2rem;
+/*====== z-index ======*/
+--z-fixed: 100;
+}
+
+
+body{
+width: 100vw;
+margin:0;
+}
+
+/*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  Header  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+
+header{
+display: flex;
+flex-direction: column;
+align-items: center;
+width:100vw;
+/* left:0; */
+background: linear-gradient(#000646,#262570);
+}
+
+.header__maintitle,.header__subtitle{
+text-align: center;
+font-family: Quicksand, Poppins, sans-serif;
+margin : var(--mar-4) var(--mar-3);
+}
+
+.header__maintitle{
+font-size: var(--h1-font-size);
+color: var(--text-color-4);
+}
+
+.header__subtitle{
+font-size: var(--h3-font-size);
+color: var(--text-color);
+}
+
+#logo{
+
+width:350px;
+margin: var(--mar-3) 0;
+}
+
+/*xxxxxx  Media Queries Header over 1000px  xxxxxx*/
+
+@media (min-width:1000px){
+
+header{
+height:300px;
+display: flex;
+flex-direction: row;
+align-items: center;
+}
+
+section{
+width: 99vw;
+}
+
+.header__maintitle{
+font-size: 5rem;
+}
+
+
+#logo{
+width:500px;
+margin: var(--mar-3) 0 var(--mar-3) var(--mar-1);
+}
+}
+
+/*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  NavBar  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+
+/*xxxxxxxxxxxxxxxxxx  NavBar under 600px xxxxxxxxxxxxxxxxxx*/
+
+
+.menu__bar {
+background: linear-gradient(#70256c,#450074);
+width: 100vw;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
+
+.menu__bar ul{
+list-style: none;
+}
+
+.menu__bar ul li {
+padding: var(--pad-5) 0;
+margin-right: var(--mar-3);
+}
+
+.menu__bar ul li a {
+font-size: var(--h3-font-size);
+font-weight: var(--font-semi-bold);
+color: var(--text-color);
+text-decoration: none;
+transition: all 0.3s;
+}
+
+.menu__bar ul li a:hover {
+color: fuchsia;
+}
+
+/*xxxxxx  Media Queries NavBar over 700px  xxxxxx*/
+
+@media (min-width:700px){
+
+.menu__bar {
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+}
+
+.menu__bar ul {
+margin-right: var(--mar-1);
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+}
+
+}
+
+/*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  Main  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+
+
+h2{
+text-align: center;
+font-size: var(--h2-font-size);
+font-weight: var(--font-bold);
+color: var(--text-color-3);
+font-family: Poppins, sans-serif;
+}
+
+/*XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX*/
+
+article:first-of-type{
+background-color: var(--first-color-light);
+border-radius: 10px;
+width: 100%;
+margin: var(--mar-4) 0;
+position: relative;
+display: flex;
+justify-content: space-evenly;
+}
+
+fieldset{
+margin: var(--mar-3) 0;
+font-family: Poppins, sans-serif;
+}
+
+.searchBar{
+padding: var(--pad-6) 0;
+display: inherit;
+}
+
+.searchBar__button {
+width: 32px;
+height: 36px;
+border: 1px solid var(--text-color-2);
+background: var(--second-color-light);
+text-align: center;
+color: var(--text-color-3);
+border-radius:  20px 0 0 20px;
+cursor: pointer;
+padding-bottom: 4px;
+margin-right: -5px;
+border-right: none;
+font-size: 16px;
+}
+
+.field,.login-field,.signin-field {
+width: 14rem;
+border: 1px solid var(--text-color-2);
+background: var(--second-color-light);
+height: 32px;
+outline: none;
+}
+
+.field{
+    border-right: none;
+    border-left: none;
+    border-radius: 0 20px 20px 0;
+}
+
+.login-field,.signin-field{
+    border-radius: 20px;
+    padding-left: var(--pad-5);
+}
+
+.field::placeholder,.login-field::placeholder,.signin-field::placeholder {
+color: var(--text-color-3);
+opacity: 1;
+}
+
+
+
+.list_objects{
+display: flex;
+flex-direction: column;
+align-items: center;
+background-color:var(--first-color-light);
+border-radius: 10px;
+padding: var(--pad-4) 0;
+margin-bottom: var(--mar-2);
+width:100%;
+}
+
+.object{
+margin: var(--mar-4) 0;
+background-color: white;
+border-radius: 10px;
+width:250px;
+}
+
+.object-img{
+background-color: #ffaf2d;
+width:250px;
+height:250px;
+}
+
+#fieldset-button{
+background: var(--text-color-3);
+cursor: pointer;
+border: none;
+border-radius: 5px;
+width:9rem;
+padding: var(--pad-5) ;
+color: var(--text-color);
+margin: var(--mar-4) 0 0 var(--mar-3);
+}
+
+#fieldset-button:hover{
+background-color: var(--text-color-2);
+transition: 0.5;
+}
+
+h4,p{
+margin-left: var(--mar-5);
+}
+
+h4{
+    text-decoration: underline;
+}
+
+/*xxxxxx  Media Queries over 600px  xxxxxx*/
+
+@media (min-width:600px){
+
+h2{
+font-size: var(--h1-font-size);
+}
+
+fieldset{
+width:90vw;
+}
+
+.fieldset-layout{
+display: flex;
+flex-wrap: wrap;
+flex-direction: row;
+justify-content: space-around;
+}
+
+.searchBar{
+margin-left: 10%;
+}
+
+
+.field{
+width:20rem;
+}
+
+
+.align-button{
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+}
+
+
+.list_objects{
+display: flex;
+justify-content: center;
+flex-direction: row;
+flex-wrap: wrap;
+padding: var(--pad-4) 0;
+}
+
+.object{
+margin: var(--mar-4) var(--mar-4);
+}
+
+#fieldset-button{
+margin-top: var(--mar-2);
+}
+
+.center{
+    margin: 3.1rem 0 0 1rem;
+}
+
+.right-side{
+    margin-top: 5rem;
+}
+
+}
+
+/*xxxxxx  Media Queries over 1150px  xxxxxx*/
+
+@media (min-width:1150px){
+
+
+
+article:first-of-type,.list_objects{
+display: flex;
+justify-content: center;
+flex-direction: row;
+flex-wrap: wrap;
+width: 95vw;
+margin: var(--mar-3) var(--mar-2);
+}
+
+fieldset{
+width:75vw;
+}
+
+.searchBar{
+margin-left: 20%;
+}
+
+
+.object{
+margin: var(--mar-4) var(--mar-4);
+}
+
+.membre__bureau{
+margin: var(--mar-5) var(--mar-5);
+}
+
+.fieldset-layout{
+display: flex;
+flex-direction: row;
+justify-content: space-evenly;
+}
+
+
+}
+
+
+
+
+
+
+
+
+/*xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx  Footer  xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx*/
+
+footer{
+display: flex;
+flex-direction: column;
+align-items: center;
+width:100vw;
+height:150px;
+padding: 2rem 0;
+background: linear-gradient(#262570,#000646);
+color: var(--text-color);
+}
+
+a{
+color:var(--text-color);
+}
+
+/*xxxxxx  Media Queries Footer under 1200 px  xxxxxx*/
+
+@media(min-width:1200px){
+
+footer{
+width:100vw;
+}
+
+}
