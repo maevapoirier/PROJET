@@ -52,7 +52,6 @@ crossorigin="anonymous"
 <nav class="menu__bar">
 
 
-
 <h1>Liste des enchères</h1>
 <ul>
 <%
@@ -72,27 +71,27 @@ if (session.getAttribute("session")!=null){
 
 
 
+
 <!-- FILTRES DE RECHERCHES SUR LES CATEGORIE, NOM, ACHAT-VENTE... -->
-<div>Choisir une catégorie :
-<%
 
-%>
-</div>
+	<div>Choisir une catégorie : 
+	<%
+	
+	%>
+	</div>
+	
+<!-- LISTE DES BLOCS D'ENCHERES -->    
 
-<!-- LISTE DES BLOCS D'ENCHERES -->
-
-
-
-<% List<ArticleVendu> maListe = (List<ArticleVendu>)request.getAttribute("maListe"); %>
-<c:forEach var="article" items="${maListe}">
-<div style="margin:20px;padding:20px;background-color:#dddddd">
-<div style="float:left;margin:10px"><img id="img" src="resources/img/${article.image }" alt="img de l'article" height=150 /></div>
-<h1><c:out value="${article.nomArticle}"></c:out></h1>
-<p>Prix : <c:out value="${article.miseAPrix}"></c:out></p>
-<p>Date de fin d'enchère : <c:out value="${article.dateFinEncheres}"></c:out></p>
-<p>Vendeur : <c:out value="${article.utilisateur.pseudo}"></c:out></p>
-</div>
-</c:forEach>
+	<% 	List<ArticleVendu> maListe = (List<ArticleVendu>)request.getAttribute("maListe"); %>
+ 	        <c:forEach var="article" items="${maListe}">
+	       	<div style="margin:20px;padding:20px;background-color:#dddddd">
+	       		<div style="float:left;margin:10px"><img id="img" src="resources/img/${article.image }" alt="img de l'article" height=150 /></div>
+	       		<h1><c:out value="${article.nomArticle}"></c:out></h1>
+	       		<p>Prix : <c:out value="${article.miseAPrix}"></c:out></p>
+	       		<p>Date de fin d'enchère : <c:out value="${article.dateFinEncheres}"></c:out></p>
+	       		<p>Vendeur : <c:out value="${article.utilisateur.pseudo}"></c:out></p>
+	       	</div>
+	       </c:forEach> 
 
 
 

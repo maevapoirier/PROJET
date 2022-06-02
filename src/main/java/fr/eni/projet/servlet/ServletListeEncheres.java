@@ -30,12 +30,14 @@ public class ServletListeEncheres extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-// LE TEST DOIT ETRE FAIT SUR L'UTILISATEUR POUR SAVOIR SI CONNECTION OU PAS
 
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//	LE TEST DOIT ETRE FAIT SUR L'UTILISATEUR POUR SAVOIR SI CONNECTION OU PAS
+
 		Utilisateur user;
+		
+		
+		
 
 		
 
@@ -44,7 +46,8 @@ public class ServletListeEncheres extends HttpServlet {
 		try {
 			List<ArticleVendu> liste = new ArrayList<ArticleVendu>();
 			liste = (List<ArticleVendu>) articleVenduDAO.selectAllCurentAuctions();
-			
+
+
 			request.setAttribute("maListe", liste);
 		} catch (BusinessException e) {
 // TODO Auto-generated catch block
