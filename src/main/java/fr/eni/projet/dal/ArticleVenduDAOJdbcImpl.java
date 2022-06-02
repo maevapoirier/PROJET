@@ -283,6 +283,7 @@ public List<ArticleVendu> selectAllCurentAuctions() throws BusinessException {
 				uneEnchereEnCours.setDateFinEncheres(rs.getDate("date_fin_encheres"));
 				uneEnchereEnCours.setMiseAPrix(rs.getDouble("prix_initial"));
 				uneEnchereEnCours.setEtatVente(rs.getString("etatVente"));
+				uneEnchereEnCours.setImage(rs.getString("image"));
 
 				Utilisateur unUtilisateur=new Utilisateur();
 				unUtilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
