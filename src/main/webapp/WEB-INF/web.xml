@@ -3,6 +3,7 @@
   <display-name>PROJET</display-name>
   <welcome-file-list>
     <welcome-file>ListeEncheres.jsp</welcome-file>
+    <welcome-file>NewArticle.jsp</welcome-file>
   </welcome-file-list>
   
 
