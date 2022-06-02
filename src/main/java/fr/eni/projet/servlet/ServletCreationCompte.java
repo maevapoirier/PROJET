@@ -62,7 +62,9 @@ public class ServletCreationCompte extends HttpServlet {
 						utilisateurManager.ajouterUtilisateur(pseudo, nom, prenom, email, telephone, rue, cp, ville, mdp, mdp2);
 						//Si tout se passe bien, je vais vers la page de consultation:
 						HttpServletRequest httpRequest = (HttpServletRequest) request;
-						httpRequest.getSession().setAttribute("session", pseudo);
+						Utilisateur user = utilisateurManager.connecterUtilisateur(email, mdp);
+						httpRequest.getSession().setAttribute("session", user);
+						
 						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ListeEncheres.jsp");
 						rd.forward(request, response);
 					} catch (BusinessException e) {
