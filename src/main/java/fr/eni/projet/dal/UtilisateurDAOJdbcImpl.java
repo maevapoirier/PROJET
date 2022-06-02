@@ -19,6 +19,7 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 	private static final String FIND_USER_BY_EMAIL = "SELECT * FROM utilisateurs WHERE email=?";
 	private static final String FIND_USER_BY_ID = "SELECT * FROM Utilisateurs WHERE id=?";
 	private static final String FIND_USER_BY_PSEUDO = "SELECT * FROM Utilisateurs WHERE pseudo=?";
+	private static final String FIND_NO_BY_PSEUDO = "SELECT * FROM Utilisateurs WHERE pseudo=?";
 
 	static Connection con;
 	static PreparedStatement ps;
@@ -142,6 +143,31 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			e.printStackTrace();
 		}
 		return null;
+
+	}
+	
+	public int findNoByPseudo(String pseudo) {
+		int no_utilisateur;
+		Utilisateur utilisateur = new Utilisateur();
+		try (Connection con = ConnectionProvider.getConnection()) {
+			
+			if (con != null)
+			{
+				System.out.println("connexion BDD ok");
+			}
+
+			PreparedStatement ps = con.prepareStatement(FIND_NO_BY_PSEUDO);
+			ps.setString(1, pseudo);
+			ResultSet rs = ps.executeQuery();
+			if (rs.next()) {
+				no_utilisateur = rs.getInt("noUtilisateur");
+				
+				return no_utilisateur;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return (Integer) null;
 
 	}
 

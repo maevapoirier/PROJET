@@ -1,5 +1,6 @@
 package fr.eni.projet.bo;
 
+
 import java.util.Date;
 
 public class ArticleVendu {
@@ -11,7 +12,12 @@ public class ArticleVendu {
 	private double miseAPrix; //prix de d�part du produit
 	private double prixVente; //prix final de vente du produit
 	private String etatVente; //vente en cours=1, sinon=0
+	private String image;
 	
+	public String getImage() {
+		return image;
+	}
+
 	private Utilisateur utilisateur;
 	private int acheteur;
 	private Retrait retrait;
@@ -34,16 +40,19 @@ public class ArticleVendu {
 		this.etatVente = etatVente;
 	}
 	
-	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, double miseAPrix, String etatVente) {
+	public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres,
+			Date dateFinEncheres, double miseAPrix, String image, Utilisateur utilisateur, Categorie categorie) {
 		super();
-		this.noArticle = noArticle;
+	
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
-		this.etatVente = etatVente;
+		this.categorie = categorie;
+		this.utilisateur = utilisateur;
+		this.image = image;
+		
 	}
 
 	public ArticleVendu() {
@@ -159,6 +168,11 @@ public class ArticleVendu {
 				+ miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", utilisateur=" + utilisateur
 				+ ", acheteur=" + acheteur + ", retrait=" + retrait + ", categorie=" + categorie + ", enchere="
 				+ enchere + "]";
+	}
+
+	public void setImage(String string) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 	

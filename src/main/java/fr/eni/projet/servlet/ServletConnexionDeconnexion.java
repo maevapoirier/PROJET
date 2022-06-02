@@ -52,7 +52,7 @@ public class ServletConnexionDeconnexion extends HttpServlet {
 			// HttpServletRequest httpRequest = (HttpServletRequest) request;
 			HttpSession session = request.getSession(true);
 			//httpRequest.getSession().setAttribute("utilisateur", utilisateur);
-			session.setAttribute("utilisateur", utilisateur);
+			session.setAttribute("session", utilisateur);
 			
 			//Si la case "se souvenir de moi" est cochée on envoie 2 cookies (login et mdp)
 			String[] checkbox = request.getParameterValues("souvenir");

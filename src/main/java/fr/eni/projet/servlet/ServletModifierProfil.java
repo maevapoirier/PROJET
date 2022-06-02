@@ -1,9 +1,6 @@
 package fr.eni.projet.servlet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -17,29 +14,26 @@ import fr.eni.projet.bll.UtilisateurManager;
 import fr.eni.projet.bo.Utilisateur;
 
 /**
- * Servlet implementation class ServletConnexion
+ * Servlet implementation class ServletModifierProfil
  */
-@WebServlet("/ServletCreationCompte")
-public class ServletCreationCompte extends HttpServlet {
+@WebServlet("/ServletModifierProfil")
+public class ServletModifierProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Utilisateur user = new Utilisateur("","","","","","","","");
-		request.setAttribute("utilisateur", user);
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/CreationCompte.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/ModifierProfil.jsp");
 		rd.forward(request, response);
-		
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
 		String pseudo = request.getParameter("pseudo");
 		String nom = request.getParameter("nom");
 		String prenom = request.getParameter("prenom");
@@ -81,11 +75,5 @@ public class ServletCreationCompte extends HttpServlet {
 					
 					
 		}
-	}
 	
-
-		
-		
-	
-
-
+}

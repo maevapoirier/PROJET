@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import fr.eni.projet.BusinessException;
 import fr.eni.projet.bo.ArticleVendu;
 import fr.eni.projet.bo.Categorie;
@@ -16,7 +18,7 @@ import fr.eni.projet.bo.Utilisateur;
 
 public class ArticleVenduDAOJdbcImpl  implements ArticleVenduDAO {	
 	
-private static final String INSERT = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, etat_vente) VALUES(?,?,?,?,?,?,?);";
+private static final String INSERT = "INSERT INTO ARTICLES_VENDUS (nom_article, description, date_debut_encheres, date_fin_encheres, prix_initial, prix_vente, etat_vente, no_utilisateur, no_categorie, image) VALUES(?,?,?,?,?,?,?,?,?,?);";
 private static final String SELECT_ALL = "SELECT * from ARTICLES_VENDUS";
 private static final String UPDATE = "UPDATE ARTICLES_VENDUS set nom_article=?,description=?,date_debut_encheres=?,date_fin_encheres=?,prix_initial=?,prix_vente=?,etat_vente=?) VALUES(?,?,?,?,?,?,?);";
 private static final String DELETE = "DELETE * FROM ARTICLES_VENDUS WHERE no_article =?";
@@ -230,6 +232,7 @@ public List<ArticleVendu> findArticleByBuyer(int no_utilisateur) throws Business
 					article.setMiseAPrix(rs.getDouble("prix_initial"));
 					article.setEtatVente(rs.getString("etatVente"));
 					article.setAcheteur(rs.getInt("no_acheteur"));
+					article.setImage(rs.getString("image"));
 
 					Utilisateur unUtilisateur=new Utilisateur();
 					unUtilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
