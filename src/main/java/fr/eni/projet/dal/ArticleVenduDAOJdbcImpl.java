@@ -27,7 +27,6 @@ private static final String FIND_ARTICLE_BY_SELLER = "SELECT * FROM ARTICLES_VEN
 private static final String FIND_ARTICLE_BY_BUYER = "SELECT * FROM ARTICLES_VENDUS av INNER JOIN categories ca ON av.no_categorie = ca.no_categorie LEFT JOIN encheres en ON av.no_article = en.no_article LEFT JOIN retraits re ON av.no_article = re.no_article WHERE no_acheteur=? ORDER BY date_debut_encheres ASC";
 private static final String FIND_ARTICLE_BY_CATEGORIE = "SELECT * FROM ARTICLES_VENDUS av INNER JOIN utilisateurs ut ON av.no_utilisateur = ut.no_utilisateur INNER JOIN categories ca ON av.no_categorie = ca.no_categorie LEFT JOIN encheres en ON av.no_article = en.no_article LEFT JOIN retraits re ON av.no_article = re.no_article WHERE cat.libelle=? ORDER BY date_debut_encheres ASC";
 private static final String SELECT_CURRENT_AUCTIONS = "SELECT * FROM articles_vendus av INNER JOIN utilisateurs ut ON av.no_utilisateur = ut.no_utilisateur INNER JOIN categories ca ON av.no_categorie = ca.no_categorie LEFT JOIN encheres en ON av.no_article = en.no_article LEFT JOIN retraits re ON av.no_article = re.no_article WHERE GETDATE() BETWEEN av.date_debut_encheres AND av.date_fin_encheres ORDER BY date_debut_encheres ASC";
-
 static Connection con;
 static PreparedStatement ps;
 
@@ -265,49 +264,102 @@ public List<ArticleVendu> findArticleByBuyer(int no_utilisateur) throws Business
 			return listeArticles;
 		}
 
-	
-
 @Override
 public List<ArticleVendu> selectAllCurentAuctions() throws BusinessException {
-	
-		List<ArticleVendu> listeDesEncheresEnCours = new ArrayList<>();
-		try (Connection con = ConnectionProvider.getConnection()) {
-			PreparedStatement ps = con.prepareStatement(SELECT_CURRENT_AUCTIONS);
- 			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
-				ArticleVendu uneEnchereEnCours=new ArticleVendu();
-				uneEnchereEnCours.setNoArticle(rs.getInt("no_article"));
-				uneEnchereEnCours.setNomArticle(rs.getString("nom_article"));
-				uneEnchereEnCours.setDescription(rs.getString("description"));
-				uneEnchereEnCours.setDateDebutEncheres(rs.getDate("date_debut_encheres"));
-				uneEnchereEnCours.setDateFinEncheres(rs.getDate("date_fin_encheres"));
-				uneEnchereEnCours.setMiseAPrix(rs.getDouble("prix_initial"));
-				uneEnchereEnCours.setEtatVente(rs.getString("etatVente"));
-				uneEnchereEnCours.setImage(rs.getString("image"));
 
-				Utilisateur unUtilisateur=new Utilisateur();
-				unUtilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
-				unUtilisateur.setPseudo(rs.getString("pseudo"));
-				uneEnchereEnCours.setUtilisateur(unUtilisateur);
+List<ArticleVendu> listeDesEncheresEnCours = new ArrayList<>();
+try (Connection con = ConnectionProvider.getConnection()) {
+PreparedStatement ps = con.prepareStatement(SELECT_CURRENT_AUCTIONS);
+ResultSet rs = ps.executeQuery();
 
-				Categorie uneCategorie=new Categorie();
-				uneCategorie.setNoCategorie(rs.getInt("no_categorie"));
-				uneCategorie.setLibelle(rs.getString("libelle"));
-				uneEnchereEnCours.setCategorie(uneCategorie);
 
-				Enchere uneEnchere=new Enchere();
-				uneEnchere.setDateEnchere(rs.getDate("date_enchere"));
-				uneEnchere.setMontant_enchere(rs.getDouble("montant_enchere"));
-				uneEnchereEnCours.setEnchere(uneEnchere);
-				
-				listeDesEncheresEnCours.add(uneEnchereEnCours);	
-			}
+while(rs.next()) {
+	System.out.println("je suis dans la boucle");
+ArticleVendu uneEnchereEnCours=new ArticleVendu();
+uneEnchereEnCours.setNoArticle(rs.getInt("no_article"));
+uneEnchereEnCours.setNomArticle(rs.getString("nom_article"));
+uneEnchereEnCours.setDescription(rs.getString("description"));
+uneEnchereEnCours.setDateDebutEncheres(rs.getDate("date_debut_encheres"));
+uneEnchereEnCours.setDateFinEncheres(rs.getDate("date_fin_encheres"));
+uneEnchereEnCours.setMiseAPrix(rs.getDouble("prix_initial"));
+uneEnchereEnCours.setEtatVente(rs.getString("etat_vente"));
+uneEnchereEnCours.setImage(rs.getString("image"));
 
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return listeDesEncheresEnCours;
-	}
+
+
+
+
+Utilisateur unUtilisateur=new Utilisateur();
+unUtilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
+unUtilisateur.setPseudo(rs.getString("pseudo"));
+uneEnchereEnCours.setUtilisateur(unUtilisateur);
+
+
+
+Categorie uneCategorie=new Categorie();
+uneCategorie.setNoCategorie(rs.getInt("no_categorie"));
+uneCategorie.setLibelle(rs.getString("libelle"));
+uneEnchereEnCours.setCategorie(uneCategorie);
+
+
+
+Enchere uneEnchere=new Enchere();
+uneEnchere.setDateEnchere(rs.getDate("date_enchere"));
+uneEnchere.setMontant_enchere(rs.getDouble("montant_enchere"));
+uneEnchereEnCours.setEnchere(uneEnchere);
+
+listeDesEncheresEnCours.add(uneEnchereEnCours);
+}
+
+
+
+} catch (Exception e) {
+e.printStackTrace();
+}
+return listeDesEncheresEnCours;
+}
+
+//@Override
+//public List<ArticleVendu> selectAllCurentAuctions() throws BusinessException {
+//	
+//		List<ArticleVendu> listeDesEncheresEnCours = new ArrayList<>();
+//		try (Connection con = ConnectionProvider.getConnection()) {
+//			PreparedStatement ps = con.prepareStatement(SELECT_CURRENT_AUCTIONS);
+// 			ResultSet rs = ps.executeQuery();
+//			while(rs.next()) {
+//				ArticleVendu uneEnchereEnCours=new ArticleVendu();
+//				uneEnchereEnCours.setNoArticle(rs.getInt("no_article"));
+//				uneEnchereEnCours.setNomArticle(rs.getString("nom_article"));
+//				uneEnchereEnCours.setDescription(rs.getString("description"));
+//				uneEnchereEnCours.setDateDebutEncheres(rs.getDate("date_debut_encheres"));
+//				uneEnchereEnCours.setDateFinEncheres(rs.getDate("date_fin_encheres"));
+//				uneEnchereEnCours.setMiseAPrix(rs.getDouble("prix_initial"));
+//				uneEnchereEnCours.setEtatVente(rs.getString("etatVente"));
+//				uneEnchereEnCours.setImage(rs.getString("image"));
+//
+//				Utilisateur unUtilisateur=new Utilisateur();
+//				unUtilisateur.setNoUtilisateur(rs.getInt("no_utilisateur"));
+//				unUtilisateur.setPseudo(rs.getString("pseudo"));
+//				uneEnchereEnCours.setUtilisateur(unUtilisateur);
+//
+//				Categorie uneCategorie=new Categorie();
+//				uneCategorie.setNoCategorie(rs.getInt("no_categorie"));
+//				uneCategorie.setLibelle(rs.getString("libelle"));
+//				uneEnchereEnCours.setCategorie(uneCategorie);
+//
+//				Enchere uneEnchere=new Enchere();
+//				uneEnchere.setDateEnchere(rs.getDate("date_enchere"));
+//				uneEnchere.setMontant_enchere(rs.getDouble("montant_enchere"));
+//				uneEnchereEnCours.setEnchere(uneEnchere);
+//				
+//				listeDesEncheresEnCours.add(uneEnchereEnCours);	
+//			}
+//
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		return listeDesEncheresEnCours;
+//	}
 
 
 
@@ -321,6 +373,7 @@ public List<ArticleVendu> selectAllByCategorie(String categorie) throws Business
  			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				ArticleVendu article =new ArticleVendu();
+				article.setImage(rs.getString("image"));
 				article.setNoArticle(rs.getInt("no_article"));
 				article.setNomArticle(rs.getString("nom_article"));
 				article.setDescription(rs.getString("description"));

@@ -155,6 +155,7 @@ public class UtilisateurManager {
 			{
 				System.out.println("pas d'erreur jusque là");
 				utilisateur = new Utilisateur();
+				utilisateur.setNoUtilisateur(no_utilisateur);
 				utilisateur.setPseudo(pseudo);
 				utilisateur.setNom(nom);
 				utilisateur.setPrenom(prenom);
@@ -169,6 +170,8 @@ public class UtilisateurManager {
 			
 				System.out.println(utilisateur);
 				this.utilisateurDAO.update(utilisateur);
+				
+				System.out.println(utilisateur);
 			}
 			else
 			{	

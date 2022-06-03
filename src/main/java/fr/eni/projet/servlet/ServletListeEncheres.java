@@ -49,8 +49,9 @@ public class ServletListeEncheres extends HttpServlet {
 
 
 			request.setAttribute("maListe", liste);
+			
+			System.out.println(liste);
 		} catch (BusinessException e) {
-// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

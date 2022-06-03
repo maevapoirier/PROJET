@@ -17,7 +17,7 @@ import fr.eni.projet.bo.Utilisateur;
 /**
  * Servlet implementation class ServletModifierProfil
  */
-@WebServlet("/log/ServletModifierProfil")
+@WebServlet("/ServletModifierProfil")
 public class ServletModifierProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -27,7 +27,7 @@ public class ServletModifierProfil extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher rd = request.getRequestDispatcher("../WEB-INF/ModifierProfil.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/ModifierProfil.jsp");
 		rd.forward(request, response);
 	}
 
@@ -38,6 +38,8 @@ public class ServletModifierProfil extends HttpServlet {
 		
 		
 		Utilisateur user = (Utilisateur) request.getSession().getAttribute("session");
+		
+		System.out.println("modifier" + user);
 		int no_utilisateur = user.getNoUtilisateur();
 		String pseudo = request.getParameter("pseudo");
 		String nom = request.getParameter("nom");
@@ -48,6 +50,8 @@ public class ServletModifierProfil extends HttpServlet {
 		String cp = request.getParameter("cp");
 		String ville = request.getParameter("ville");
 		String mdp = request.getParameter("motdepasse");
+		
+		System.out.println("modifier" + pseudo);
 	
 		
 		List<Integer> listeCodesErreur = null;
@@ -65,7 +69,7 @@ public class ServletModifierProfil extends HttpServlet {
 						httpRequest.getSession().setAttribute("session", user);
 						String message = "L'utilisateur a bien été modifié.";
 						httpRequest.setAttribute("message", message);
-						RequestDispatcher rd = request.getRequestDispatcher("../WEB-INF/ModifierProfil.jsp");
+						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifierProfil.jsp");
 						rd.forward(request, response);
 					} catch (BusinessException e) {
 						//Sinon je retourne à la page d'ajout pour indiquer les problèmes
@@ -73,7 +77,7 @@ public class ServletModifierProfil extends HttpServlet {
 						e.printStackTrace();
 						System.out.println(listeCodesErreur);
 						request.setAttribute("listeCodesErreur", listeCodesErreur);
-						RequestDispatcher rd = request.getRequestDispatcher("../WEB-INF/ModifierProfil.jsp");
+						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ModifierProfil.jsp");
 						rd.forward(request, response);
 					}
 					

@@ -12,6 +12,7 @@ public class ArticleVendu {
 	private double miseAPrix; //prix de d�part du produit
 	private double prixVente; //prix final de vente du produit
 	private String etatVente; //vente en cours=1, sinon=0
+	private int noCategorie;
 	private String image;
 	
 	public String getImage() {
@@ -19,17 +20,16 @@ public class ArticleVendu {
 	}
 
 	private Utilisateur utilisateur;
+	private Categorie categorie;
 	private int acheteur;
 	private Retrait retrait;
-	private Categorie categorie;
 	private Enchere enchere;
 	
 	
 	
 	//constructeurs
 	public ArticleVendu(int noArticle, String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, double miseAPrix, double prixVente, String etatVente) {
-		super();
+			Date dateFinEncheres, double miseAPrix, double prixVente, String etatVente, int noCategorie, String image) {
 		this.noArticle = noArticle;
 		this.nomArticle = nomArticle;
 		this.description = description;
@@ -38,29 +38,31 @@ public class ArticleVendu {
 		this.miseAPrix = miseAPrix;
 		this.prixVente = prixVente;
 		this.etatVente = etatVente;
+		this.noCategorie = noCategorie;
+		this.image = image;
 	}
 	
 	public ArticleVendu(String nomArticle, String description, Date dateDebutEncheres,
-			Date dateFinEncheres, double miseAPrix, String image, Utilisateur utilisateur, Categorie categorie) {
+			Date dateFinEncheres, double miseAPrix, int noCategorie) {
 		super();
-	
 		this.nomArticle = nomArticle;
 		this.description = description;
 		this.dateDebutEncheres = dateDebutEncheres;
 		this.dateFinEncheres = dateFinEncheres;
 		this.miseAPrix = miseAPrix;
-		this.categorie = categorie;
-		this.utilisateur = utilisateur;
-		this.image = image;
-		
+		this.noCategorie = noCategorie;
 	}
-
+	
 	public ArticleVendu() {
 		super();
 	}
 
 
 	//getter et setter
+	
+	public void setImage(String image) {
+		this.image = image;
+		}
 	
 	public int getNoArticle() {
 		return noArticle;
@@ -78,6 +80,14 @@ public class ArticleVendu {
 		this.retrait = retrait;
 	}
 
+
+	public int getNoCategorie() {
+		return noCategorie;
+	}
+	
+	public void setNoCategorie(int noCategorie) {
+		this.noCategorie = noCategorie;
+	}
 
 	public Categorie getCategorie() {
 		return categorie;
@@ -167,13 +177,10 @@ public class ArticleVendu {
 				+ ", dateDebutEncheres=" + dateDebutEncheres + ", dateFinEncheres=" + dateFinEncheres + ", miseAPrix="
 				+ miseAPrix + ", prixVente=" + prixVente + ", etatVente=" + etatVente + ", utilisateur=" + utilisateur
 				+ ", acheteur=" + acheteur + ", retrait=" + retrait + ", categorie=" + categorie + ", enchere="
-				+ enchere + "]";
+				+ enchere + ", noCategorie=" + noCategorie +"]";
 	}
 
-	public void setImage(String string) {
-		// TODO Auto-generated method stub
-		
-	}
+	
 	
 	
 	

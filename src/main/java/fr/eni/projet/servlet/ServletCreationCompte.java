@@ -65,7 +65,7 @@ public class ServletCreationCompte extends HttpServlet {
 						Utilisateur user = utilisateurManager.connecterUtilisateur(email, mdp);
 						httpRequest.getSession().setAttribute("session", user);
 						
-						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ListeEncheres.jsp");
+						RequestDispatcher rd = request.getRequestDispatcher("/ServletListeEncheres");
 						rd.forward(request, response);
 					} catch (BusinessException e) {
 						//Sinon je retourne à la page d'ajout pour indiquer les problèmes
@@ -74,7 +74,7 @@ public class ServletCreationCompte extends HttpServlet {
 						request.setAttribute("listeCodesErreur",e.getListeCodesErreur());
 						Utilisateur user = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, cp, ville);
 						request.setAttribute("utilisateur", user);
-						RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/CreationCompte.jsp");
+						RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/CreationCompte.jsp");
 						rd.forward(request, response);
 					}
 					

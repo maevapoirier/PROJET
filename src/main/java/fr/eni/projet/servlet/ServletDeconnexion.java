@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet implementation class ServletDeconnexion
  */
-@WebServlet("/log/ServletDeconnexion")
+@WebServlet("/ServletDeconnexion")
 public class ServletDeconnexion extends HttpServlet {
 	private static final long serialVersionUID = 1L;
  
@@ -24,7 +24,7 @@ public class ServletDeconnexion extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true); 
 		session.invalidate();
-		RequestDispatcher rd = request.getRequestDispatcher("../WEB-INF/ListeEncheres.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/ServletListeEncheres");
 		rd.forward(request, response);
     }
 	

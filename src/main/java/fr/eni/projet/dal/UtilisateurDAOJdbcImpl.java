@@ -12,9 +12,9 @@ import fr.eni.projet.bo.Utilisateur;
 
 public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 
-	private static final String INSERT = "INSERT INTO utilisateurs(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
-	private static final String SELECT = "SELECT * from Utilisateurs (no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
-	private static final String UPDATE = "UPDATE Utilisateurs set pseudo=?,nom=?,prenom=?,email=?,telephone=?,rue=?,code_postal=?,ville=?,mot_de_passe=?,credit=?,administrateur=?) VALUES(?,?,?,?,?,?,?,?,?,?,?);";
+	private static final String INSERT = "INSERT INTO utilisateurs(pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String SELECT = "SELECT * from Utilisateurs (no_utilisateur,pseudo,nom,prenom,email,telephone,rue,code_postal,ville,mot_de_passe,credit,administrateur) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String UPDATE = "UPDATE Utilisateurs set pseudo=?,nom=?,prenom=?,email=?,telephone=?,rue=?,code_postal=?,ville=?,mot_de_passe=? WHERE no_utilisateur=?";
 	private static final String DELETE = "DELETE * FROM Utilisateurs WHERE no_utilisateur =?";
 	private static final String FIND_USER_BY_EMAIL = "SELECT * FROM utilisateurs WHERE email=?";
 	private static final String FIND_USER_BY_ID = "SELECT * FROM Utilisateurs WHERE id=?";
@@ -220,8 +220,9 @@ public class UtilisateurDAOJdbcImpl implements UtilisateurDAO {
 			ps.setString(7, u.getCodePostal());
 			ps.setString(8, u.getVille());
 			ps.setString(9, u.getMotDePasse());
-			ps.setInt(10, u.getCredit());
-			ps.setInt(11, u.getNoUtilisateur());
+			
+			ps.setInt(10, u.getNoUtilisateur());
+			System.out.println(ps);
 			ps.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();

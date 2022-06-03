@@ -184,14 +184,16 @@ font-family: Poppins, sans-serif;
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX*/
 
 article:first-of-type{
-background-color: var(--first-color-light);
+background:linear-gradient(rgba(255,255,255,0.75),rgba(250,250,250,0.9), rgba(255,255,255,0.75) );
 border-radius: 10px;
+border: solid 2px var(--first-color);
 width: 100%;
 margin: var(--mar-4) 0;
 position: relative;
 display: flex;
 justify-content: space-evenly;
 }
+
 
 fieldset{
 margin: var(--mar-3) 0;
@@ -227,14 +229,14 @@ outline: none;
 }
 
 .field{
-    border-right: none;
-    border-left: none;
-    border-radius: 0 20px 20px 0;
+border-right: none;
+border-left: none;
+border-radius: 0 20px 20px 0;
 }
 
 .login-field,.signin-field{
-    border-radius: 20px;
-    padding-left: var(--pad-5);
+border-radius: 20px;
+padding-left: var(--pad-5);
 }
 
 .field::placeholder,.login-field::placeholder,.signin-field::placeholder {
@@ -248,8 +250,9 @@ opacity: 1;
 display: flex;
 flex-direction: column;
 align-items: center;
-background-color:var(--first-color-light);
+background:linear-gradient(rgba(255,255,255,0.75),rgba(250,250,250,0.9), rgba(255,255,255,0.75) );
 border-radius: 10px;
+border: solid 2px var(--first-color);
 padding: var(--pad-4) 0;
 margin-bottom: var(--mar-2);
 width:100%;
@@ -276,7 +279,7 @@ border-radius: 5px;
 width:9rem;
 padding: var(--pad-5) ;
 color: var(--text-color);
-margin: var(--mar-4) 0 0 var(--mar-3);
+margin: var(--mar-4) 0 0 45px;
 }
 
 #fieldset-button:hover{
@@ -284,12 +287,31 @@ background-color: var(--text-color-2);
 transition: 0.5;
 }
 
+#signin-button{
+display: block;
+margin: 5rem 0 1rem 27%;
+background: var(--first-color);
+cursor: pointer;
+border: none;
+border-radius: 5px;
+width:8rem;
+height:1.7rem;
+text-align: center;
+padding: var(--pad-5) ;
+}
+
+#signin{
+    color:var(--text-color-4);
+    text-decoration: none;
+    font-weight: var(--font-bold);
+}
+
 h4,p{
 margin-left: var(--mar-5);
 }
 
 h4{
-    text-decoration: underline;
+text-decoration: underline;
 }
 
 /*xxxxxx  Media Queries over 600px  xxxxxx*/
@@ -344,12 +366,16 @@ margin: var(--mar-4) var(--mar-4);
 margin-top: var(--mar-2);
 }
 
+#signin-button{
+    margin: 5rem 0 1rem 45%;
+}
+
 .center{
-    margin: 3.1rem 0 0 1rem;
+margin: 3.1rem 0 0 1rem;
 }
 
 .right-side{
-    margin-top: 5rem;
+margin-top: 5rem;
 }
 
 }

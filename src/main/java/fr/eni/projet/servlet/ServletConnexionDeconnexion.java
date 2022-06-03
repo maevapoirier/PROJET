@@ -30,7 +30,7 @@ public class ServletConnexionDeconnexion extends HttpServlet {
 		HttpSession session = request.getSession(true); 
 		session.invalidate();
 		//httpRequest.getSession().setAttribute("utilisateur", null);
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ListeEncheres.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/ServletListeEncheres");
 		rd.forward(request, response);
     }
 		
@@ -69,10 +69,10 @@ public class ServletConnexionDeconnexion extends HttpServlet {
 			}
 			
 			
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/ListeEncheres.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/ServletListeEncheres");
 			rd.forward(request, response);
 		}else {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/Connexion.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("/ServletListeEncheres");
 			rd.forward(request, response);
 		}
 

@@ -15,8 +15,16 @@
 
 
  	    <%
+ 	    
+ 	    String message = null;
+ 	    
+ 	    if(request.getAttribute("message")!=null)
+ 	    {
+ 	    	message = (String) request.getAttribute("message");
+ 	    }
 	
-
+	%>
+	<% 
 			List<Integer> listeCodesErreur = (List<Integer>)request.getAttribute("listeCodesErreur");
 			if(listeCodesErreur!=null)
 			{
@@ -41,6 +49,11 @@
 %>
 <div>
 	<h1>Votre Profil</h1>>
+	
+	<br/>
+	<% if (message!=null)
+		{ %><p><%=message %></p><%  }
+		%>
 
 	<form method="post" action="<%=request.getContextPath()%>/ServletModifierProfil">
             <fieldset>
@@ -85,9 +98,17 @@
                 <input type="text" id="ville" name="ville" value="<%=user.getVille() %>" size="20" maxlength="20" />
                 <br />
 
-                <input type="button" value="Modifier" />
+                <input type="submit" value="Modifier" />
                 <br />
+                
+   
             </fieldset>
+            
+            <div>
+	
+		<a href="<%=request.getContextPath()%>/ServletAfficherProfil"><input type="button" value="Retour"></a>
+		
+	</div>
         </form>
 </div>
 
