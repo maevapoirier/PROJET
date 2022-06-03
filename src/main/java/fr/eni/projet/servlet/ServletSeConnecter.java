@@ -32,4 +32,3 @@ public class ServletSeConnecter extends HttpServlet {
 	}
 
 }
-
