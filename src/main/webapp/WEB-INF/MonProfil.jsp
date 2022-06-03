@@ -61,7 +61,7 @@
 	</table>
 	<div>
 	
-		<a href="<%=request.getContextPath()%>/ServletModifierProfil"><input type="button" value="Modifier"></a>
+		<a href="<%=request.getContextPath()%>/log/ServletModifierProfil"><input type="button" value="Modifier"></a>
 	</div>
 </div>
 
